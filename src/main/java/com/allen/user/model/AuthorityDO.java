@@ -3,6 +3,8 @@ package com.allen.user.model;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import org.apache.ibatis.type.Alias;
+
 /**
  * 权限数据对象类
  * 
@@ -11,6 +13,7 @@ import java.time.LocalDateTime;
  * @since 1.0.0
  *
  */
+@Alias("AuthorityDO")
 public class AuthorityDO implements Serializable {
 
 	/**
@@ -74,7 +77,7 @@ public class AuthorityDO implements Serializable {
 	public String toString() {
 		StringBuilder sbuilder = new StringBuilder();
 		sbuilder.append("AuthorityDO[").append("id=").append(id).append(", authorityName=").append(authorityName)
-				.append(", authorityNote=").append(authorityNote).append(", creatTime=").append(createTime).append("]");
+				.append(", authorityNote=").append(authorityNote).append(", createTime=").append(createTime).append("]");
 		return sbuilder.toString();
 	}
 }

@@ -3,6 +3,8 @@ package com.allen.user.model;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import org.apache.ibatis.type.Alias;
+
 /**
  * 角色权限数据对象类
  * 
@@ -11,6 +13,7 @@ import java.time.LocalDateTime;
  * @since 1.0.0
  *
  */
+@Alias("RoleAuthorityDO")
 public class RoleAuthorityDO implements Serializable {
 
 	/**
