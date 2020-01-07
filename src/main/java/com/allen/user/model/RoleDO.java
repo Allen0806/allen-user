@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import org.apache.ibatis.type.Alias;
 
 /**
- * 角色信息
+ * 角色数据对象类
  *
  * @author Allen
  * @date 2020年1月7日
@@ -39,7 +39,7 @@ public class RoleDO implements Serializable {
 	/**
 	 * 创建时间
 	 */
-	private LocalDateTime creatTime;
+	private LocalDateTime createTime;
 
 	public Long getId() {
 		return id;
@@ -65,20 +65,19 @@ public class RoleDO implements Serializable {
 		this.roleNote = roleNote;
 	}
 
-	public LocalDateTime getCreatTime() {
-		return creatTime;
+	public LocalDateTime getCreateTime() {
+		return createTime;
 	}
 
-	public void setCreatTime(LocalDateTime creatTime) {
-		this.creatTime = creatTime;
+	public void setCreateTime(LocalDateTime createTime) {
+		this.createTime = createTime;
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder sbuilder = new StringBuilder();
-		sbuilder.append("RoleDO[").append("id=").append(id).append(", roleName=").append(roleName)
-				.append(", roleNote=").append(roleNote).append(", creatTime=")
-				.append(creatTime).append("]");
+		sbuilder.append("RoleDO[").append("id=").append(id).append(", roleName=").append(roleName).append(", roleNote=")
+				.append(roleNote).append(", createTime=").append(createTime).append("]");
 		return sbuilder.toString();
 	}
 }

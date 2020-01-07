@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import org.apache.ibatis.type.Alias;
 
 /**
- * 用户数据存储对象
+ * 用户数据对象
  * 
  * @author Allen
  * @date 2020年1月7日
@@ -54,7 +54,7 @@ public class UserDO implements Serializable {
 	/**
 	 * 创建时间
 	 */
-	private LocalDateTime creatTime;
+	private LocalDateTime createTime;
 
 	/**
 	 * 最后登录时间
@@ -109,12 +109,12 @@ public class UserDO implements Serializable {
 		this.userGender = userGender;
 	}
 
-	public LocalDateTime getCreatTime() {
-		return creatTime;
+	public LocalDateTime getCreateTime() {
+		return createTime;
 	}
 
-	public void setCreatTime(LocalDateTime creatTime) {
-		this.creatTime = creatTime;
+	public void setCreateTime(LocalDateTime createTime) {
+		this.createTime = createTime;
 	}
 
 	public LocalDateTime getLastLoginTime() {
@@ -130,8 +130,8 @@ public class UserDO implements Serializable {
 		StringBuilder sbuilder = new StringBuilder();
 		sbuilder.append("UserDO[").append("id=").append(id).append(", userName=").append(userName)
 				.append(", userPassword=").append(userPassword).append(", realName=").append(realName)
-				.append(", userAge=").append(userAge).append(", userGender=").append(userGender).append(", creatTime=")
-				.append(creatTime).append(", lastLoginTime=").append(lastLoginTime).append("]");
+				.append(", userAge=").append(userAge).append(", userGender=").append(userGender).append(", createTime=")
+				.append(createTime).append(", lastLoginTime=").append(lastLoginTime).append("]");
 		return sbuilder.toString();
 	}
 }
