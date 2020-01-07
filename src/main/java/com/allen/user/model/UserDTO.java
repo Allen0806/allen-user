@@ -139,7 +139,7 @@ public class UserDTO implements Serializable {
 	@Override
 	public String toString() {
 		StringBuilder sbuilder = new StringBuilder();
-		sbuilder.append("UserDO[").append("id=").append(id).append(", userName=").append(userName)
+		sbuilder.append("UserDTO[").append("id=").append(id).append(", userName=").append(userName)
 				.append(", userPassword=").append(userPassword).append(", realName=").append(realName)
 				.append(", userAge=").append(userAge).append(", userGender=").append(userGender).append(", createTime=")
 				.append(createTime).append(", lastLoginTime=").append(lastLoginTime).append("]");
