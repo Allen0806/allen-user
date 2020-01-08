@@ -6,20 +6,20 @@ import java.time.LocalDateTime;
 import org.apache.ibatis.type.Alias;
 
 /**
- * 权限数据对象类
- * 
+ * 角色数据对象类
+ *
  * @author Allen
  * @date 2020年1月7日
  * @since 1.0.0
  *
  */
-@Alias("AuthorityDO")
-public class AuthorityDO implements Serializable {
+@Alias("AuRoleDO")
+public class AuRoleDO implements Serializable {
 
 	/**
 	 * 序列化版本号
 	 */
-	private static final long serialVersionUID = 7466955390339352247L;
+	private static final long serialVersionUID = -2349442726256316953L;
 
 	/**
 	 * 主键ID
@@ -27,14 +27,14 @@ public class AuthorityDO implements Serializable {
 	private Long id;
 
 	/**
-	 * 权限名称
+	 * 角色名称
 	 */
-	private String authorityName;
+	private String roleName;
 
 	/**
-	 * 权限备注
+	 * 角色备注
 	 */
-	private String authorityNote;
+	private String roleNote;
 
 	/**
 	 * 创建时间
@@ -49,20 +49,20 @@ public class AuthorityDO implements Serializable {
 		this.id = id;
 	}
 
-	public String getAuthorityName() {
-		return authorityName;
+	public String getRoleName() {
+		return roleName;
 	}
 
-	public void setAuthorityName(String authorityName) {
-		this.authorityName = authorityName;
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
 	}
 
-	public String getAuthorityNote() {
-		return authorityNote;
+	public String getRoleNote() {
+		return roleNote;
 	}
 
-	public void setAuthorityNote(String authorityNote) {
-		this.authorityNote = authorityNote;
+	public void setRoleNote(String roleNote) {
+		this.roleNote = roleNote;
 	}
 
 	public LocalDateTime getCreateTime() {
@@ -76,8 +76,8 @@ public class AuthorityDO implements Serializable {
 	@Override
 	public String toString() {
 		StringBuilder sbuilder = new StringBuilder();
-		sbuilder.append("AuthorityDO[").append("id=").append(id).append(", authorityName=").append(authorityName)
-				.append(", authorityNote=").append(authorityNote).append(", createTime=").append(createTime).append("]");
+		sbuilder.append("RoleDO[").append("id=").append(id).append(", roleName=").append(roleName).append(", roleNote=")
+				.append(roleNote).append(", createTime=").append(createTime).append("]");
 		return sbuilder.toString();
 	}
 }

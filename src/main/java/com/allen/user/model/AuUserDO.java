@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 
 import org.apache.ibatis.type.Alias;
 
+import com.allen.user.constant.GenderEnum;
+
 /**
  * 用户数据对象
  * 
@@ -13,8 +15,8 @@ import org.apache.ibatis.type.Alias;
  * @since 1.0.0
  *
  */
-@Alias("UserDO")
-public class UserDO implements Serializable {
+@Alias("AuUserDO")
+public class AuUserDO implements Serializable {
 
 	/**
 	 * 序列化版本号
@@ -49,7 +51,7 @@ public class UserDO implements Serializable {
 	/**
 	 * 用户性别
 	 */
-	private String userGender;
+	private GenderEnum userGender;
 
 	/**
 	 * 创建时间
@@ -101,11 +103,11 @@ public class UserDO implements Serializable {
 		this.userAge = userAge;
 	}
 
-	public String getUserGender() {
+	public GenderEnum getUserGender() {
 		return userGender;
 	}
 
-	public void setUserGender(String userGender) {
+	public void setUserGender(GenderEnum userGender) {
 		this.userGender = userGender;
 	}
 

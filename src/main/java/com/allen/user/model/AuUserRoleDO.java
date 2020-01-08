@@ -13,8 +13,8 @@ import org.apache.ibatis.type.Alias;
  * @since 1.0.0
  *
  */
-@Alias("UserRoleDO")
-public class UserRoleDO implements Serializable {
+@Alias("AuUserRoleDO")
+public class AuUserRoleDO implements Serializable {
 
 	/**
 	 * 序列化版本号
