@@ -76,7 +76,7 @@ public class AuAuthorityDO implements Serializable {
 	@Override
 	public String toString() {
 		StringBuilder sbuilder = new StringBuilder();
-		sbuilder.append("AuthorityDO[").append("id=").append(id).append(", authorityName=").append(authorityName)
+		sbuilder.append("AuAuthorityDO[").append("id=").append(id).append(", authorityName=").append(authorityName)
 				.append(", authorityNote=").append(authorityNote).append(", createTime=").append(createTime).append("]");
 		return sbuilder.toString();
 	}

@@ -89,9 +89,10 @@ spring:
 
 #配置Mybatis
 mybatis:
-  mapper-locations: classpath:mapper/*/*.xml
+  mapper-locations: classpath*:mapper/**/*.xml
   type-aliases-package: com.allen.user.*.model
   type-handlers-package: com.allen.user.*.typehandler
   configuration:
-        # 开启驼峰命名转换，如：Table(create_time) -> Entity(createTime)。不需要我们关心怎么进行字段匹配，mybatis会自动识别`大写字母与下划线`
+    # 开启驼峰命名转换，如：Table(create_time) -> Entity(createTime)。不需要我们关心怎么进行字段匹配，mybatis会自动识别`大写字母与下划线`
     map-underscore-to-camel-case: true
+    interceptors: com.allen.user.mybatis.plugin.UserPlugin

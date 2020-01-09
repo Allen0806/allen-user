@@ -76,7 +76,7 @@ public class AuUserRoleDO implements Serializable {
 	@Override
 	public String toString() {
 		StringBuilder sbuilder = new StringBuilder();
-		sbuilder.append("UserRoleDO[").append("id=").append(id).append(", userId=").append(userId).append(", roleId=")
+		sbuilder.append("AuUserRoleDO[").append("id=").append(id).append(", userId=").append(userId).append(", roleId=")
 				.append(roleId).append(", createTime=").append(createTime).append("]");
 		return sbuilder.toString();
 	}

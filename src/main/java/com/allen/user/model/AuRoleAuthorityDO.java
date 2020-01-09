@@ -89,7 +89,7 @@ public class AuRoleAuthorityDO implements Serializable {
 	@Override
 	public String toString() {
 		StringBuilder sbuilder = new StringBuilder();
-		sbuilder.append("UserDO[").append("id=").append(id).append(", roleId=").append(roleId).append(", authorityId=")
+		sbuilder.append("AuRoleAuthorityDO[").append("id=").append(id).append(", roleId=").append(roleId).append(", authorityId=")
 				.append(authorityId).append(", valid=").append(valid).append(", createTime=").append(createTime)
 				.append("]");
 		return sbuilder.toString();

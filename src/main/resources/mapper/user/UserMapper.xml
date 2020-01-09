@@ -2,19 +2,40 @@
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.allen.user.dao.UserDAO">
-	<insert id="save" parameterType="AuUserDO" useGeneratedKeys="true" keyProperty="id">
+	<!-- 插入用户 -->
+	<insert id="save" parameterType="AuUserDO" useGeneratedKeys="true" keyProperty="id" flushCache="true" keyColumn="id" statementType="PREPARED" timeout="10">
 		insert into au_user(user_name, user_password, real_name, user_age, user_gender, create_time, last_login_time)
 			values(#{userName}, #{userPassword}, #{realName}, #{userAge}, #{userGender}, #{createTime}, #{lastLoginTime})
 	</insert>
+	<!-- 批量插入用户 -->
 	<insert id="saveBatch" useGeneratedKeys="true" keyProperty="id">
 		insert into au_user(user_name, user_password, real_name, user_age, user_gender, create_time, last_login_time) values
 		<foreach collection="list" item="item" separator=",">
 			(#{item.userName}, #{item.userPassword}, #{item.realName}, #{item.userAge}, #{item.userGender}, #{item.createTime}, #{item.lastLoginTime})
 		</foreach>
 	</insert>
+	<!-- 根据主键ID更新用户 -->
+	<update id="update" parameterType="com.allen.user.model.AuUserDO">
+		update au_user
+		<set>
+			<if test="userName != null" >user_name=#{userName},</if>
+			<if test="userPassword != null">user_password=#{userPassword},</if>
+			<if test="realName != null">real_name=#{realName},</if>
+			<if test="userAge != null">user_age=#{userAge},</if>
+			<if test="userGender != null">user_gender=#{userGender},</if>
+			<if test="lastLoginTime != null">last_login_time=#{lastLoginTime}</if>
+		</set>
+		where id = #{id}
+	</update>
+	<!-- 根据主键ID删除用户 -->
+	<delete id="delete" parameterType="long">
+		delete from au_user where id = #{id}
+	</delete>
+	<!-- 通用查询语句块 -->
 	<sql id="userColumns">
 		id, user_name as userName, user_password as userPassword, real_name as realName, user_age as userAge, user_gender as userGender, create_time as createTime, last_login_time as lastLoginTime
 	</sql>
+	<!-- 用户结果集 -->
 	<resultMap id="userResultMap" type="AuUserDO">
 		<id property="id" column="id" />
 		<result property="userName" column="user_name" />
@@ -25,5 +46,6 @@
 		<result property="createTime" column="create_time"/>
 		<result property="lastLoginTime" column="last_login_time"/>
 	</resultMap>
-	<cache/>
+	<!-- 开启二级缓存 -->
+	<cache eviction="LRU" flushInterval="60000" size="1024" readOnly="false" />
 </mapper>
