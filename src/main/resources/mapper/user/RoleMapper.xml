@@ -3,5 +3,32 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.allen.user.dao.RoleDAO">
 
-<cache-ref namespace="com.allen.user.dao.UserDAO"/>
+
+	<!-- 通用查询语句块 -->
+	<sql id="roleColumns">
+		id, role_name as roleName, role_note as roleNote, create_time as createTime
+	</sql>
+	<!-- 单角色结果集 -->
+	<resultMap id="roleResultMap" type="AuRoleDO">
+		<id property="id" column="id" />
+		<result property="roleName" column="role_name" />
+		<result property="roleNote" column="role_note"/>
+		<result property="createTime" column="create_time"/>
+	</resultMap>
+	<!-- 根据主键获取角色 -->
+	<select id="get" parameterType="long" resultMap="roleResultMap">
+		select
+		<include refid="roleColumns" />
+		from au_role
+		where id = #{id}
+	</select>
+	<!-- 根据角色名称获取角色 -->
+	<select id="getByUserName" parameterType="string" resultType="AuRoleDO">
+		select
+		<include refid="userColumns" />
+		from au_user
+		where user_name = #{userName}
+	</select>
+
+	<cache-ref namespace="com.allen.user.dao.UserDAO"/>
 </mapper>

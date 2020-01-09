@@ -35,7 +35,7 @@
 	<sql id="userColumns">
 		id, user_name as userName, user_password as userPassword, real_name as realName, user_age as userAge, user_gender as userGender, create_time as createTime, last_login_time as lastLoginTime
 	</sql>
-	<!-- 用户结果集 -->
+	<!-- 单用户结果集 -->
 	<resultMap id="userResultMap" type="AuUserDO">
 		<id property="id" column="id" />
 		<result property="userName" column="user_name" />
@@ -46,6 +46,84 @@
 		<result property="createTime" column="create_time"/>
 		<result property="lastLoginTime" column="last_login_time"/>
 	</resultMap>
+	<!-- 根据主键获取用户 -->
+	<select id="get" parameterType="long" resultType="AuUserDO">
+		select id, user_name, user_password, real_name, user_age, user_gender, create_time, last_login_time
+		from au_user
+		where id = #{id}
+	</select>
+	<!-- 根据用户名称获取用户 -->
+	<select id="getByUserName" parameterType="string" resultMap="userResultMap">
+		select
+		<include refid="userColumns" />
+		from au_user
+		where user_name = #{userName}
+	</select>
+	<!-- 用户及包含的角色结果集 -->
+	<resultMap id="userRoleResultMap" type="UserRoleDO">
+		<id property="id" column="id" />
+		<result property="userName" column="userName" />
+		<result property="userPassword" column="userPassword"/>
+		<result property="realName" column="realName"/>
+		<result property="userAge" column="userAge"/>
+		<result property="userGender" column="userGender"/>
+		<result property="createTime" column="createTime"/>
+		<result property="lastLoginTime" column="lastLoginTime"/>
+		<collection property="roles" ofType="AuRoleDO">
+			<id property="id" column="roleId"/>
+			<result property="roleName" column="roleName"/>
+			<result property="roleNote" column="roleNote"/>
+			<result property="createTime" column="roleCreateTime"/>
+		</collection>
+	</resultMap>
+	<!-- 级联查询 -->
+	<select id="getUserWithRole" parameterType="string" resultMap="userRoleResultMap">
+		select 
+			a.id as id,
+			a.user_name as userName,
+			a.user_password as userPassword,
+			a.real_name as realName,
+			a.user_age as userAge,
+			a.user_gender as userGender,
+			a.create_time as createTime,
+			a.last_login_time as lastLoginTime,
+			c.id as roleId,
+			c.role_name as roleName,
+			c.role_note as roleNote,
+			c.create_time as roleCreateTime
+		from au_user a 
+			left join au_user_role b on a.id = b.user_id
+			left join au_role c on c.id = b.role_id
+		where a.user_name = #{userName}
+	</select>
+	<!-- 用户及包含的角色结果集，引用角色Mapper里的实现 -->
+	<resultMap id="userRoleResultMap2" type="UserRoleDO">
+		<id property="id" column="id" />
+		<result property="userName" column="userName" />
+		<result property="userPassword" column="userPassword"/>
+		<result property="realName" column="realName"/>
+		<result property="userAge" column="userAge"/>
+		<result property="userGender" column="userGender"/>
+		<result property="createTime" column="createTime"/>
+		<result property="lastLoginTime" column="lastLoginTime"/>
+		<collection property="roles" ofType="AuRoleDO" javaType="List" column="roleId" select="com.allen.user.dao.RoleDAO.get" />
+	</resultMap>
+	<!-- 级联查询 -->
+	<select id="getUserWithRole2" parameterType="string" resultMap="userRoleResultMap2">
+		select 
+			a.id as id,
+			a.user_name as userName,
+			a.user_password as userPassword,
+			a.real_name as realName,
+			a.user_age as userAge,
+			a.user_gender as userGender,
+			a.create_time as createTime,
+			a.last_login_time as lastLoginTime,
+			b.id as roleId
+		from au_user a 
+			left join au_user_role b on a.id = b.user_id
+		where a.user_name = #{userName}
+	</select>
 	<!-- 开启二级缓存 -->
 	<cache eviction="LRU" flushInterval="60000" size="1024" readOnly="false" />
 </mapper>
