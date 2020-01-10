@@ -2,9 +2,11 @@ package com.allen.user.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.allen.tool.result.BaseResult;
+import com.allen.user.dao.RoleDAO;
 import com.allen.user.model.AuUserRoleDO;
 import com.allen.user.model.RoleDTO;
 import com.allen.user.service.RoleService;
@@ -19,6 +21,12 @@ import com.allen.user.service.RoleService;
  */
 @Service
 public class RoleServiceImpl implements RoleService {
+	
+	/**
+	 * 角色DAO层接口
+	 */
+	@Autowired
+	private RoleDAO roleDAO;
 
 	@Override
 	public BaseResult<Integer> save(RoleDTO role) {

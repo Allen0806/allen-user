@@ -2,7 +2,10 @@ package com.allen.user.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.allen.tool.result.BaseResult;
+import com.allen.user.dao.AuthorityDAO;
 import com.allen.user.model.AuRoleAuthorityDO;
 import com.allen.user.model.AuthorityDTO;
 import com.allen.user.service.AuthorityService;
@@ -16,6 +19,12 @@ import com.allen.user.service.AuthorityService;
  *
  */
 public class AuthorityServiceImpl implements AuthorityService {
+	
+	/**
+	 * 权限DAO层接口
+	 */
+	@Autowired
+	private AuthorityDAO authorityDAO;
 
 	@Override
 	public BaseResult<Integer> save(AuthorityDTO authority) {

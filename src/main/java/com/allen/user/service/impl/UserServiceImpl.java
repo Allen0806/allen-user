@@ -2,9 +2,11 @@ package com.allen.user.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.allen.tool.result.BaseResult;
+import com.allen.user.dao.UserDAO;
 import com.allen.user.model.UserDTO;
 import com.allen.user.service.UserService;
 
@@ -18,6 +20,12 @@ import com.allen.user.service.UserService;
  */
 @Service
 public class UserServiceImpl implements UserService {
+	
+	/**
+	 * 用户DAO层接口
+	 */
+	@Autowired
+	private UserDAO userDAO;
 
 	@Override
 	public BaseResult<Integer> save(UserDTO user) {
