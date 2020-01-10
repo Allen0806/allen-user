@@ -9,7 +9,7 @@ import org.apache.ibatis.type.Alias;
 import com.allen.user.constant.GenderEnum;
 
 /**
- * 用户及角色信息数据对象类
+ * 用户及角色信息数据对象类，测试Mybatis的collection特性用
  * 
  * @author Allen
  * @date 2020年1月9日

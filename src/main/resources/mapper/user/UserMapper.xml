@@ -7,14 +7,14 @@
 		insert into au_user(user_name, user_password, real_name, user_age, user_gender, create_time, last_login_time)
 			values(#{userName}, #{userPassword}, #{realName}, #{userAge}, #{userGender}, #{createTime}, #{lastLoginTime})
 	</insert>
-	<!-- 批量插入用户 -->
+	<!-- 批量插入用户，foreach使用示例 -->
 	<insert id="saveBatch" useGeneratedKeys="true" keyProperty="id">
 		insert into au_user(user_name, user_password, real_name, user_age, user_gender, create_time, last_login_time) values
 		<foreach collection="list" item="item" separator=",">
 			(#{item.userName}, #{item.userPassword}, #{item.realName}, #{item.userAge}, #{item.userGender}, #{item.createTime}, #{item.lastLoginTime})
 		</foreach>
 	</insert>
-	<!-- 根据主键ID更新用户 -->
+	<!-- 根据主键ID更新用户，set使用示例 -->
 	<update id="update" parameterType="com.allen.user.model.AuUserDO">
 		update au_user
 		<set>
@@ -48,49 +48,41 @@
 	</resultMap>
 	<!-- 根据主键获取用户 -->
 	<select id="get" parameterType="long" resultType="AuUserDO">
-		select id, user_name, user_password, real_name, user_age, user_gender, create_time, last_login_time
+		select
+		<include refid="userColumns" />
 		from au_user
 		where id = #{id}
 	</select>
 	<!-- 根据用户名称获取用户 -->
 	<select id="getByUserName" parameterType="string" resultMap="userResultMap">
-		select
-		<include refid="userColumns" />
+		select id, user_name, user_password, real_name, user_age, user_gender, create_time, last_login_time
 		from au_user
 		where user_name = #{userName}
 	</select>
-	<!-- 用户及包含的角色结果集 -->
-	<resultMap id="userRoleResultMap" type="UserRoleDO">
-		<id property="id" column="id" />
-		<result property="userName" column="userName" />
-		<result property="userPassword" column="userPassword"/>
-		<result property="realName" column="realName"/>
-		<result property="userAge" column="userAge"/>
-		<result property="userGender" column="userGender"/>
-		<result property="createTime" column="createTime"/>
-		<result property="lastLoginTime" column="lastLoginTime"/>
+	<!-- 用户及包含的角色结果集，以下为collection使用示例，分为resultMap及select -->
+	<resultMap id="userRoleResultMap" type="UserRoleDO" extends="userResultMap">
 		<collection property="roles" ofType="AuRoleDO">
-			<id property="id" column="roleId"/>
-			<result property="roleName" column="roleName"/>
-			<result property="roleNote" column="roleNote"/>
-			<result property="createTime" column="roleCreateTime"/>
+			<id property="id" column="role_Id"/>
+			<result property="roleName" column="role_name"/>
+			<result property="roleNote" column="role_note"/>
+			<result property="createTime" column="role_create_Time"/>
 		</collection>
 	</resultMap>
 	<!-- 级联查询 -->
 	<select id="getUserWithRole" parameterType="string" resultMap="userRoleResultMap">
 		select 
 			a.id as id,
-			a.user_name as userName,
-			a.user_password as userPassword,
-			a.real_name as realName,
-			a.user_age as userAge,
-			a.user_gender as userGender,
-			a.create_time as createTime,
-			a.last_login_time as lastLoginTime,
-			c.id as roleId,
-			c.role_name as roleName,
-			c.role_note as roleNote,
-			c.create_time as roleCreateTime
+			a.user_name as user_name,
+			a.user_password as user_password,
+			a.real_name as real_name,
+			a.user_age as user_age,
+			a.user_gender as user_gender,
+			a.create_time as create_time,
+			a.last_login_time as last_login_time,
+			c.id as role_id,
+			c.role_name as role_name,
+			c.role_note as role_note,
+			c.create_time as role_create_time
 		from au_user a 
 			left join au_user_role b on a.id = b.user_id
 			left join au_role c on c.id = b.role_id
@@ -99,27 +91,27 @@
 	<!-- 用户及包含的角色结果集，引用角色Mapper里的实现 -->
 	<resultMap id="userRoleResultMap2" type="UserRoleDO">
 		<id property="id" column="id" />
-		<result property="userName" column="userName" />
-		<result property="userPassword" column="userPassword"/>
-		<result property="realName" column="realName"/>
-		<result property="userAge" column="userAge"/>
-		<result property="userGender" column="userGender"/>
-		<result property="createTime" column="createTime"/>
-		<result property="lastLoginTime" column="lastLoginTime"/>
-		<collection property="roles" ofType="AuRoleDO" javaType="List" column="roleId" select="com.allen.user.dao.RoleDAO.get" />
+		<result property="userName" column="user_name" />
+		<result property="userPassword" column="user_password"/>
+		<result property="realName" column="real_name"/>
+		<result property="userAge" column="user_age"/>
+		<result property="userGender" column="user_gender"/>
+		<result property="createTime" column="create_time"/>
+		<result property="lastLoginTime" column="last_login_time"/>
+		<collection property="roles" ofType="AuRoleDO" javaType="List" column="role_id" select="com.allen.user.dao.RoleDAO.get" />
 	</resultMap>
 	<!-- 级联查询 -->
 	<select id="getUserWithRole2" parameterType="string" resultMap="userRoleResultMap2">
 		select 
 			a.id as id,
-			a.user_name as userName,
-			a.user_password as userPassword,
-			a.real_name as realName,
-			a.user_age as userAge,
-			a.user_gender as userGender,
-			a.create_time as createTime,
-			a.last_login_time as lastLoginTime,
-			b.id as roleId
+			a.user_name as user_name,
+			a.user_password as user_password,
+			a.real_name as real_name,
+			a.user_age as user_age,
+			a.user_gender as user_gender,
+			a.create_time as create_time,
+			a.last_login_time as last_login_time,
+			b.id as role_id,
 		from au_user a 
 			left join au_user_role b on a.id = b.user_id
 		where a.user_name = #{userName}

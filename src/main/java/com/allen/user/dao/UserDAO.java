@@ -1,6 +1,11 @@
 package com.allen.user.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
+
+import com.allen.user.model.AuUserDO;
+import com.allen.user.model.UserRoleDO;
 
 /**
  * 用户管理DAO
@@ -13,4 +18,67 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserDAO {
 
+	/**
+	 * 保存用户
+	 * 
+	 * @param user 用户信息
+	 * @return 保存记录数
+	 */
+	int save(AuUserDO user);
+
+	/**
+	 * 批量保存用户
+	 * 
+	 * @param users 用户列表
+	 * @return 保存记录数
+	 */
+	int saveBatch(List<AuUserDO> users);
+
+	/**
+	 * 更新用户
+	 * 
+	 * @param user 用户信息
+	 * @return 更新记录数
+	 */
+	int update(AuUserDO user);
+
+	/**
+	 * 根据用户主键ID删除用户
+	 * 
+	 * @param id 用户主键ID
+	 * @return 删除记录路
+	 */
+	int delete(Long id);
+
+	/**
+	 * 根据主键获取用户信息
+	 * 
+	 * @param id 用户主键ID
+	 * @return 用户信息
+	 */
+	AuUserDO get(Long id);
+
+	/**
+	 * 根据用户名称获取用户信息
+	 * 
+	 * @param userName 用户名称
+	 * @return 用户信息
+	 */
+	AuUserDO getByUserName(String userName);
+
+	/**
+	 * 根据用户名称获取用户信息，包括用户的角色信息
+	 * 
+	 * @param userName 用户名称
+	 * @return 用户信息
+	 */
+	UserRoleDO getUserWithRole(String userName);
+
+	/**
+	 * 根据用户名称获取用户信息，包括用户的角色信息（懒加载）
+	 * 
+	 * @param userName 用户名称
+	 * @return 用户信息
+	 */
+	UserRoleDO getUserWithRole2(String userName);
 }
