@@ -22,7 +22,7 @@ import com.allen.user.service.UserService;
  */
 @Service
 public class UserServiceImpl implements UserService {
-	
+
 	/**
 	 * 用户DAO层接口
 	 */
@@ -76,13 +76,14 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	/**
 	 * 将DTO对象转换为DO对象
+	 * 
 	 * @param userDTO
 	 * @return
 	 */
-	private AuUserDO toAuUserDO(UserDTO userDTO) {
+	private AuUserDO toUserDO(UserDTO userDTO) {
 		AuUserDO userDO = new AuUserDO();
 		userDO.setId(userDTO.getId());
 		userDO.setUserName(userDTO.getUserName());
@@ -93,6 +94,25 @@ public class UserServiceImpl implements UserService {
 		userDO.setCreateTime(userDTO.getCreateTime());
 		userDO.setLastLoginTime(userDTO.getLastLoginTime());
 		return userDO;
+	}
+
+	/**
+	 * 将DO对象转换为DTO对象
+	 * 
+	 * @param userDO
+	 * @return
+	 */
+	private UserDTO toUserDTO(AuUserDO userDO) {
+		UserDTO userDTO = new UserDTO();
+		userDTO.setId(userDO.getId());
+		userDTO.setUserName(userDO.getUserName());
+		userDTO.setUserPassword(userDO.getUserPassword());
+		userDTO.setRealName(userDO.getRealName());
+		userDTO.setUserAge(userDO.getUserAge());
+		userDTO.setUserGender(userDO.getUserGender().value());
+		userDTO.setCreateTime(userDO.getCreateTime());
+		userDTO.setLastLoginTime(userDO.getLastLoginTime());
+		return userDTO;
 	}
 
 }
