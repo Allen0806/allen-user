@@ -2,7 +2,6 @@ package com.allen.user.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  *角色数据传输对象
@@ -39,11 +38,6 @@ public class RoleDTO implements Serializable {
 	 */
 	private LocalDateTime createTime;
 	
-	/**
-	 * 权限列表
-	 */
-	private List<AuthorityDTO> authorities;
-
 	public Long getId() {
 		return id;
 	}
@@ -74,15 +68,6 @@ public class RoleDTO implements Serializable {
 
 	public void setCreateTime(LocalDateTime createTime) {
 		this.createTime = createTime;
-	}
-	
-
-	public List<AuthorityDTO> getAuthorities() {
-		return authorities;
-	}
-
-	public void setAuthorities(List<AuthorityDTO> authorities) {
-		this.authorities = authorities;
 	}
 
 	@Override

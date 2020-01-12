@@ -2,7 +2,6 @@ package com.allen.user.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * 用户数据传输对象
@@ -59,11 +58,6 @@ public class UserDTO implements Serializable {
 	 */
 	private LocalDateTime lastLoginTime;
 	
-	/**
-	 * 角色集合
-	 */
-	private List<RoleDTO> roles;
-
 	public Long getId() {
 		return id;
 	}
@@ -128,14 +122,6 @@ public class UserDTO implements Serializable {
 		this.lastLoginTime = lastLoginTime;
 	}
 	
-	public List<RoleDTO> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(List<RoleDTO> roles) {
-		this.roles = roles;
-	}
-
 	@Override
 	public String toString() {
 		StringBuilder sbuilder = new StringBuilder();

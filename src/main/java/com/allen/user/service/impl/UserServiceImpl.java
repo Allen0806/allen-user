@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.allen.tool.result.BaseResult;
+import com.allen.user.constant.GenderEnum;
 import com.allen.user.dao.UserDAO;
+import com.allen.user.model.AuUserDO;
 import com.allen.user.model.UserDTO;
 import com.allen.user.service.UserService;
 
@@ -73,6 +75,24 @@ public class UserServiceImpl implements UserService {
 	public BaseResult<UserDTO> getUserWithRole2(String userName) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	/**
+	 * 将DTO对象转换为DO对象
+	 * @param userDTO
+	 * @return
+	 */
+	private AuUserDO toAuUserDO(UserDTO userDTO) {
+		AuUserDO userDO = new AuUserDO();
+		userDO.setId(userDTO.getId());
+		userDO.setUserName(userDTO.getUserName());
+		userDO.setUserPassword(userDTO.getUserPassword());
+		userDO.setRealName(userDTO.getRealName());
+		userDO.setUserAge(userDTO.getUserAge());
+		userDO.setUserGender(GenderEnum.instanceOf(userDTO.getUserGender()));
+		userDO.setCreateTime(userDTO.getCreateTime());
+		userDO.setLastLoginTime(userDTO.getLastLoginTime());
+		return userDO;
 	}
 
 }
