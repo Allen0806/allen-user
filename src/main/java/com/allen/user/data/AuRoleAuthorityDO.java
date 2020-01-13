@@ -1,22 +1,25 @@
-package com.allen.user.model;
+package com.allen.user.data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import org.apache.ibatis.type.Alias;
+
 /**
- * 角色权限信息
- *
+ * 角色权限数据对象类
+ * 
  * @author allen
- * @date 2020年1月12日
+ * @date 2020年1月7日
  * @since 1.0.0
  *
  */
-public class RoleAuthorityDTO implements Serializable {
+@Alias("AuRoleAuthorityDO")
+public class AuRoleAuthorityDO implements Serializable {
 
 	/**
-	 * 序列化
+	 * 序列化版本号
 	 */
-	private static final long serialVersionUID = 114572940506979915L;
+	private static final long serialVersionUID = 1788815243160618L;
 
 	/**
 	 * 主键ID
@@ -42,11 +45,11 @@ public class RoleAuthorityDTO implements Serializable {
 	 * 创建时间
 	 */
 	private LocalDateTime createTime;
-
+	
 	/**
-	 * 权限信息
+	 * 关联的权限信息
 	 */
-	private AuthorityDTO authority;
+	private AuAuthorityDO authority;
 
 	public Long getId() {
 		return id;
@@ -88,12 +91,21 @@ public class RoleAuthorityDTO implements Serializable {
 		this.createTime = createTime;
 	}
 
-	public AuthorityDTO getAuthority() {
+	public AuAuthorityDO getAuthority() {
 		return authority;
 	}
 
-	public void setAuthority(AuthorityDTO authority) {
+	public void setAuthority(AuAuthorityDO authority) {
 		this.authority = authority;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sbuilder = new StringBuilder();
+		sbuilder.append("AuRoleAuthorityDO[").append("id=").append(id).append(", roleId=").append(roleId).append(", authorityId=")
+				.append(authorityId).append(", valid=").append(valid).append(", createTime=").append(createTime)
+				.append("]");
+		return sbuilder.toString();
 	}
 
 }

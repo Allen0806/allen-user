@@ -46,7 +46,7 @@
 		<id property="id" column="id" />
 		<result property="authorityName" column="authority_name" />
 		<result property="authorityNote" column="authority_note"/>
-		<result property="valid" column="is_valid" javaType="boolean" jdbcType="TINYINT"/>
+		
 		<result property="createTime" column="create_time"/>
 	</resultMap>
 	<select id="get" parameterType="long" resultMap="authorityResultMap">
@@ -61,14 +61,35 @@
 		from au_authority
 		where authority_name = #{authorityName}
 	</select>
-	<select id="listAuthority" resultMap="authorityResultMap">
-		select 
-			b.id id,
-			b.authority_name authority_name,
-			b.authority_note authority_note,
-			b.is_valid is_valid,
-			b.create_time, create_time
-		from au_role_authority a left join au_authority b on b.id = a.authority_id
-		where a.role_id = #{roleId}
+	<resultMap id="roleAuthorityResultMap" type="AuRoleAuthorityDO">
+		<id property="id" column="id" />
+		<result property="roleId" column="role_id" />
+		<result property="authorityId" column="authority_id"/>
+		<result property="valid" column="is_valid" javaType="boolean" jdbcType="TINYINT"/>
+		<result property="createTime" column="create_time"/>
+		<association property="authority" column="authority_id" resultMap="authorityResultMap" columnPrefix="au_"/>
+	</resultMap>
+	<select id="listRoleAuthority" resultMap="roleAuthorityResultMap">
+		<if test="roleId != null or authorityId != null">
+			select 
+				a.id id,
+				a.role_id, role_id,
+				a.authority_id authority_id,
+				a.is_valid is_valid,
+				a.create_time create_time,
+				b.id au_id,
+				b.authority_name au_authority_name,
+				b.authority_note au_authority_note,
+				b.create_time, au_create_time
+			from au_role_authority a left join au_authority b on b.id = a.authority_id
+			<where>
+				<if test="roleId != null">
+					a.role_id = #{roleId}
+				</if>
+				<if test="authorityId != null">
+					and a.authority_id = #{authorityId}
+				</if>
+			</where>
+		</if>
 	</select>
 </mapper>

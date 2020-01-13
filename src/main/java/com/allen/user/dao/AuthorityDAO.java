@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.allen.user.model.AuAuthorityDO;
-import com.allen.user.model.AuRoleAuthorityDO;
+import com.allen.user.data.AuAuthorityDO;
+import com.allen.user.data.AuRoleAuthorityDO;
 
 /**
  * 权限管理DAO
@@ -67,10 +67,11 @@ public interface AuthorityDAO {
 	AuAuthorityDO getByAuthorityName(String authorityName);
 
 	/**
-	 * 根据角色主键ID获取权限列表
+	 * 获取权限列表，角色主键ID及权限主键ID二者必给其一，两者都给定时为And关系
 	 * 
-	 * @param roleId 角色主键ID
+	 * @param roleId      角色主键ID
+	 * @param authorityId 权限主键ID
 	 * @return 权限列表
 	 */
-	List<AuAuthorityDO> listAuthority(String roleId);
+	List<AuAuthorityDO> listRoleAuthority(String roleId, String authorityId);
 }

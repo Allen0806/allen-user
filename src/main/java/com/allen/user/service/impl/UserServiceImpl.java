@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import com.allen.tool.result.BaseResult;
 import com.allen.user.constant.GenderEnum;
 import com.allen.user.dao.UserDAO;
-import com.allen.user.model.AuUserDO;
-import com.allen.user.model.UserDTO;
+import com.allen.user.data.AuUserDO;
+import com.allen.user.dto.UserDTO;
 import com.allen.user.service.UserService;
 
 /**

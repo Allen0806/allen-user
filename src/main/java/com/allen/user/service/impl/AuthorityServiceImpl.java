@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.allen.tool.result.BaseResult;
 import com.allen.user.dao.AuthorityDAO;
-import com.allen.user.model.AuRoleAuthorityDO;
-import com.allen.user.model.AuthorityDTO;
+import com.allen.user.data.AuRoleAuthorityDO;
+import com.allen.user.dto.AuthorityDTO;
 import com.allen.user.service.AuthorityService;
 
 /**

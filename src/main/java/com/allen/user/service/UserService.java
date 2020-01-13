@@ -3,7 +3,7 @@ package com.allen.user.service;
 import java.util.List;
 
 import com.allen.tool.result.BaseResult;
-import com.allen.user.model.UserDTO;
+import com.allen.user.dto.UserDTO;
 
 /**
  * 用户服务层

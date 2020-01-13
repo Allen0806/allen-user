@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.allen.tool.result.BaseResult;
 import com.allen.user.dao.RoleDAO;
-import com.allen.user.model.AuUserRoleDO;
-import com.allen.user.model.RoleDTO;
+import com.allen.user.data.AuUserRoleDO;
+import com.allen.user.dto.RoleDTO;
 import com.allen.user.service.RoleService;
 
 /**

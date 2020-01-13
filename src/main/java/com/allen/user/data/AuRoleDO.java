@@ -1,4 +1,4 @@
-package com.allen.user.model;
+package com.allen.user.data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

@@ -3,8 +3,8 @@ package com.allen.user.service;
 import java.util.List;
 
 import com.allen.tool.result.BaseResult;
-import com.allen.user.model.AuRoleAuthorityDO;
-import com.allen.user.model.AuthorityDTO;
+import com.allen.user.data.AuRoleAuthorityDO;
+import com.allen.user.dto.AuthorityDTO;
 
 /**
  * 权限服务层

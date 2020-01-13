@@ -7,7 +7,7 @@
 			values(#{roleName}, #{roleNote}, #{createTime})
 	</insert>
 	<!-- 根据主键ID更新，trim使用示例 -->
-	<update id="update" parameterType="com.allen.user.model.AuRoleDO">
+	<update id="update" parameterType="com.allen.user.data.AuRoleDO">
 		update au_role
 		<trim prefix="set" suffixOverrides=",">
 			<if test="roleName != null" >role_name=#{roleName},</if>
@@ -26,8 +26,8 @@
 		</foreach>
 	</insert>
 	<delete id="deleteUserRole">
-		delete from au_user_role
 		<if test="userId != null or roleId != null">
+			delete from au_user_role
 			<where>
 				<if test="userId != null">
 					user_id = #{userId}
@@ -63,34 +63,34 @@
 		from au_role
 		where role_name = #{roleName}
 	</select>
-	<select id="listRole" resultMap="roleResultMap">
-		select 
-			b.id id,
-			b.role_name role_name,
-			b.role_note role_note,
-			b.create_time, create_time
-		from au_user_role a left join au_role b on b.id = a.role_id
-		where a.user_id = #{userId}
-	</select>
-	<resultMap id="userRoleAssoResultMap" type="UserRoleAssoDO">
+	<resultMap id="userRoleResultMap" type="AuUserRoleDO">
 		<id property="id" column="id" />
 		<result property="userId" column="user_id" />
 		<result property="roleId" column="role_id"/>
 		<result property="createTime" column="create_time"/>
 		<association property="role" column="role_id" javaType="AuRoleDO" resultMap="roleResultMap" columnPrefix="r_"/>
 	</resultMap>
-	<select id="getUserRole" resultMap="userRoleAssoResultMap">
-		select 
-			a.id id,
-			a.user_id user_id,
-			a.role_id role_id,
-			a.create_time create_time,
-			b.id r_id,
-			b.role_name r_role_name,
-			b.role_note r_role_note,
-			b.create_time r_create_time
-		from au_user_role a left join au_role b on b.id = a.role_id
-		where a.role_id = #{roleId}
+	<select id="listUserRole" resultMap="userRoleResultMap">
+		<if test="userId != null or roleId != null">
+			select 
+				a.id id,
+				a.user_id user_id,
+				a.role_id role_id,
+				a.create_time create_time,
+				b.id r_id,
+				b.role_name r_role_name,
+				b.role_note r_role_note,
+				b.create_time r_create_time
+			from au_user_role a left join au_role b on b.id = a.role_id
+			<where>
+				<if test="userId != null">
+					a.user_id = #{userId}
+				</if>
+				<if test="roleId != null">
+					and a.role_id = #{roleId}
+				</if>
+			</where>
+		</if>
 	</select>
 	<cache-ref namespace="com.allen.user.dao.UserDAO"/>
 </mapper>

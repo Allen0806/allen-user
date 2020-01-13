@@ -5,8 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.allen.tool.result.BaseResult;
-import com.allen.user.model.AuUserRoleDO;
-import com.allen.user.model.RoleDTO;
+import com.allen.user.data.AuUserRoleDO;
+import com.allen.user.dto.RoleDTO;
 
 /**
  * 角色服务层

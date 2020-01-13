@@ -1,4 +1,4 @@
-package com.allen.user.model;
+package com.allen.user.dto;
 
 import java.io.Serializable;
 
@@ -28,7 +28,7 @@ public class UserRoleDTO implements Serializable {
 	private Long userId;
 
 	/**
-	 * 角色逐渐ID
+	 * 角色主键ID
 	 */
 	private Long roleId;
 

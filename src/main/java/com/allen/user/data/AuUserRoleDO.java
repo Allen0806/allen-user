@@ -1,4 +1,4 @@
-package com.allen.user.model;
+package com.allen.user.data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -40,6 +40,11 @@ public class AuUserRoleDO implements Serializable {
 	 * 创建时间
 	 */
 	private LocalDateTime createTime;
+	
+	/**
+	 * 关联的角色
+	 */
+	private AuRoleDO role;
 
 	public Long getId() {
 		return id;
@@ -71,6 +76,14 @@ public class AuUserRoleDO implements Serializable {
 
 	public void setCreateTime(LocalDateTime createTime) {
 		this.createTime = createTime;
+	}
+	
+	public AuRoleDO getRole() {
+		return role;
+	}
+
+	public void setRole(AuRoleDO role) {
+		this.role = role;
 	}
 
 	@Override

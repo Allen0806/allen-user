@@ -5,9 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-import com.allen.user.model.AuRoleDO;
-import com.allen.user.model.AuUserRoleDO;
-import com.allen.user.model.UserRoleAssoDO;
+import com.allen.user.data.AuRoleDO;
+import com.allen.user.data.AuUserRoleDO;
 
 /**
  * 角色管理DAO
@@ -78,18 +77,11 @@ public interface RoleDAO {
 	AuRoleDO getByRoleName(String roleName);
 
 	/**
-	 * 根据用户主键ID获取该用户拥有的角色信息
+	 * 获取该用户拥有的角色信息，用户主键ID与角色主键ID二者必须给其一，如果两者都给则是And关系
 	 * 
 	 * @param userId 用户主键ID
+	 * @param roleId 角色主键ID
 	 * @return 角色信息列表
 	 */
-	List<AuRoleDO> listRole(Long userId);
-
-	/**
-	 * 根据角色Id获取用户角色信息，测试Mybatis的Association特性用
-	 * 
-	 * @param roleId 角色ID
-	 * @return 用户角色信息
-	 */
-	UserRoleAssoDO getUserRole(Long roleId);
+	List<AuRoleDO> listUserRole(Long userId, Long roleId);
 }
