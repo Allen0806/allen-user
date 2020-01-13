@@ -1,7 +1,5 @@
 package com.allen.user.service;
 
-import java.util.List;
-
 import com.allen.tool.result.BaseResult;
 import com.allen.user.dto.UserDTO;
 
@@ -21,15 +19,7 @@ public interface UserService {
 	 * @param user 用户信息
 	 * @return 保存记录数
 	 */
-	BaseResult<Integer> save(UserDTO user);
-
-	/**
-	 * 批量保存用户
-	 * 
-	 * @param users 用户列表
-	 * @return 保存记录数
-	 */
-	BaseResult<Integer> saveBatch(List<UserDTO> users);
+	BaseResult<UserDTO> save(UserDTO user);
 
 	/**
 	 * 更新用户
@@ -37,8 +27,8 @@ public interface UserService {
 	 * @param user 用户信息
 	 * @return 更新记录数
 	 */
-	BaseResult<Integer> update(UserDTO user);
-
+	BaseResult<UserDTO> update(UserDTO user);
+	
 	/**
 	 * 根据用户主键ID删除用户
 	 * 

@@ -1,7 +1,5 @@
 package com.allen.user.dao;
 
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 
 import com.allen.user.data.AuUserDO;
@@ -25,14 +23,6 @@ public interface UserDAO {
 	 * @return 保存记录数
 	 */
 	int save(AuUserDO user);
-
-	/**
-	 * 批量保存用户
-	 * 
-	 * @param users 用户列表
-	 * @return 保存记录数
-	 */
-	int saveBatch(List<AuUserDO> users);
 
 	/**
 	 * 更新用户

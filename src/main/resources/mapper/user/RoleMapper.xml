@@ -19,6 +19,7 @@
 	<delete id="delete" parameterType="long">
 		delete from au_role where id = #{id}
 	</delete>
+	<!-- 批量插入用户角色，foreach使用示例 -->
 	<insert id="saveUserRole" useGeneratedKeys="true" keyProperty="id">
 		insert into au_user_role(user_id, role_id, create_time) values
 		<foreach collection="list" item="item" separator=",">

@@ -3,6 +3,7 @@ package com.allen.user.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.allen.user.data.AuAuthorityDO;
 import com.allen.user.data.AuRoleAuthorityDO;
@@ -51,6 +52,15 @@ public interface AuthorityDAO {
 	int saveRoleAuthority(List<AuRoleAuthorityDO> roleAuthoritis);
 
 	/**
+	 * 删除角色权限信息，权限主键ID与角色主键ID二者必给其一，如果都给，则为And关系
+	 * 
+	 * @param roleId      权限主键ID
+	 * @param authorityId 角色主键ID
+	 * @return 删除的行数
+	 */
+	int deleteRoleAuthority(@Param("roleId") Long roleId, @Param("authorityId") Long authorityId);
+
+	/**
 	 * 根据权限主键ID获取权限信息
 	 * 
 	 * @param id 权限主键ID
@@ -73,5 +83,5 @@ public interface AuthorityDAO {
 	 * @param authorityId 权限主键ID
 	 * @return 权限列表
 	 */
-	List<AuAuthorityDO> listRoleAuthority(String roleId, String authorityId);
+	List<AuRoleAuthorityDO> listRoleAuthority(@Param("roleId") Long roleId, @Param("authorityId") Long authorityId);
 }

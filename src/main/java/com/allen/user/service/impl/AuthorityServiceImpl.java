@@ -8,6 +8,7 @@ import com.allen.tool.result.BaseResult;
 import com.allen.user.dao.AuthorityDAO;
 import com.allen.user.data.AuRoleAuthorityDO;
 import com.allen.user.dto.AuthorityDTO;
+import com.allen.user.dto.RoleAuthorityDTO;
 import com.allen.user.service.AuthorityService;
 
 /**
@@ -27,13 +28,13 @@ public class AuthorityServiceImpl implements AuthorityService {
 	private AuthorityDAO authorityDAO;
 
 	@Override
-	public BaseResult<Integer> save(AuthorityDTO authority) {
+	public BaseResult<AuthorityDTO> save(AuthorityDTO authority) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public BaseResult<Integer> update(AuthorityDTO authority) {
+	public BaseResult<AuthorityDTO> update(AuthorityDTO authority) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -45,7 +46,13 @@ public class AuthorityServiceImpl implements AuthorityService {
 	}
 
 	@Override
-	public BaseResult<Integer> saveRoleAuthority(List<AuRoleAuthorityDO> roleAuthoritis) {
+	public BaseResult<Integer> saveRoleAuthority(List<RoleAuthorityDTO> roleAuthoritis) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public BaseResult<Integer> deleteRoleAuthority(Long roleId, Long authorityId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -63,9 +70,8 @@ public class AuthorityServiceImpl implements AuthorityService {
 	}
 
 	@Override
-	public BaseResult<List<AuthorityDTO>> listAuthority(String roleId) {
+	public BaseResult<List<RoleAuthorityDTO>> listRoleAuthority(Long roleId, Long authorityId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

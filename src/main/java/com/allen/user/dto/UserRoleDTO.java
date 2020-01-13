@@ -1,6 +1,7 @@
 package com.allen.user.dto;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * 用户角色传输对象
@@ -33,6 +34,11 @@ public class UserRoleDTO implements Serializable {
 	private Long roleId;
 
 	/**
+	 * 创建时间
+	 */
+	private LocalDateTime createTime;
+
+	/**
 	 * 角色对象
 	 */
 	private RoleDTO role;
@@ -53,6 +59,14 @@ public class UserRoleDTO implements Serializable {
 		this.userId = userId;
 	}
 
+	public LocalDateTime getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(LocalDateTime createTime) {
+		this.createTime = createTime;
+	}
+
 	public Long getRoleId() {
 		return roleId;
 	}
@@ -68,5 +82,13 @@ public class UserRoleDTO implements Serializable {
 	public void setRole(RoleDTO role) {
 		this.role = role;
 	}
-	
+
+	@Override
+	public String toString() {
+		StringBuilder sbuilder = new StringBuilder();
+		sbuilder.append("UserRoleDTO[").append("id=").append(id).append(", userId=").append(userId).append(", roleId=")
+				.append(roleId).append(", createTime=").append(createTime).append(", role=").append(role).append("]");
+		return sbuilder.toString();
+	}
+
 }

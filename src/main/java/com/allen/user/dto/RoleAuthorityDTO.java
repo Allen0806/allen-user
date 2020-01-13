@@ -96,4 +96,12 @@ public class RoleAuthorityDTO implements Serializable {
 		this.authority = authority;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder sbuilder = new StringBuilder();
+		sbuilder.append("RoleAuthorityDTO[").append("id=").append(id).append(", roleId=").append(roleId)
+				.append(", authorityId=").append(authorityId).append(", valid=").append(valid).append(", createTime=")
+				.append(createTime).append(", authority=").append(authority).append("]");
+		return sbuilder.toString();
+	}
 }

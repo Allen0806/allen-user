@@ -7,13 +7,6 @@
 		insert into au_user(user_name, user_password, real_name, user_age, user_gender, create_time, last_login_time)
 			values(#{userName}, #{userPassword}, #{realName}, #{userAge}, #{userGender}, #{createTime}, #{lastLoginTime})
 	</insert>
-	<!-- 批量插入用户，foreach使用示例 -->
-	<insert id="saveBatch" useGeneratedKeys="true" keyProperty="id">
-		insert into au_user(user_name, user_password, real_name, user_age, user_gender, create_time, last_login_time) values
-		<foreach collection="list" item="item" separator=",">
-			(#{item.userName}, #{item.userPassword}, #{item.realName}, #{item.userAge}, #{item.userGender}, #{item.createTime}, #{item.lastLoginTime})
-		</foreach>
-	</insert>
 	<!-- 根据主键ID更新用户，set使用示例 -->
 	<update id="update" parameterType="com.allen.user.data.AuUserDO">
 		update au_user

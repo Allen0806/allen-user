@@ -77,11 +77,11 @@ public interface RoleDAO {
 	AuRoleDO getByRoleName(String roleName);
 
 	/**
-	 * 获取该用户拥有的角色信息，用户主键ID与角色主键ID二者必须给其一，如果两者都给则是And关系
+	 * 获取用户角色信息，用户主键ID与角色主键ID二者必须给其一，如果两者都给则是And关系
 	 * 
 	 * @param userId 用户主键ID
 	 * @param roleId 角色主键ID
 	 * @return 角色信息列表
 	 */
-	List<AuRoleDO> listUserRole(Long userId, Long roleId);
+	List<AuUserRoleDO> listUserRole(@Param("userId") Long userId, @Param("roleId") Long roleId);
 }

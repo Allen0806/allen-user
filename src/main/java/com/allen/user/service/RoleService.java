@@ -2,11 +2,9 @@ package com.allen.user.service;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-
 import com.allen.tool.result.BaseResult;
-import com.allen.user.data.AuUserRoleDO;
 import com.allen.user.dto.RoleDTO;
+import com.allen.user.dto.UserRoleDTO;
 
 /**
  * 角色服务层
@@ -24,7 +22,7 @@ public interface RoleService {
 	 * @param role 角色信息
 	 * @return 保存的行数
 	 */
-	BaseResult<Integer> save(RoleDTO role);
+	BaseResult<RoleDTO> save(RoleDTO role);
 
 	/**
 	 * 更新角色信息
@@ -32,7 +30,7 @@ public interface RoleService {
 	 * @param role 角色信息
 	 * @return 更新的行数
 	 */
-	BaseResult<Integer> update(RoleDTO role);
+	BaseResult<RoleDTO> update(RoleDTO role);
 
 	/**
 	 * 根据角色主键ID删除角色信息
@@ -48,7 +46,7 @@ public interface RoleService {
 	 * @param userRoles 用户角色列表
 	 * @return 保存的行数
 	 */
-	BaseResult<Integer> saveUserRole(List<AuUserRoleDO> userRoles);
+	BaseResult<Integer> saveUserRole(List<UserRoleDTO> userRoles);
 
 	/**
 	 * 根据用户主键Id或角色Id删除用户角色信息，二者必须给其一
@@ -57,7 +55,7 @@ public interface RoleService {
 	 * @param roleId 角色主键ID
 	 * @return 删除的行数
 	 */
-	BaseResult<Integer> deleteUserRole(@Param("userId") Long userId, @Param("roleId") Long roleId);
+	BaseResult<Integer> deleteUserRole(Long userId, Long roleId);
 
 	/**
 	 * 根据角色主键ID获取角色信息
@@ -76,18 +74,12 @@ public interface RoleService {
 	BaseResult<RoleDTO> getByRoleName(String roleName);
 
 	/**
-	 * 根据用户主键ID获取该用户拥有的角色信息
+	 * 获取用户角色信息，用户主键ID与角色主键ID二者必须给其一，如果两者都给则是And关系
 	 * 
 	 * @param userId 用户主键ID
-	 * @return 角色信息列表
+	 * @param roleId 角色主键ID
+	 * @return 用户角色信息列表
 	 */
-	BaseResult<List<RoleDTO>> listRole(Long userId);
+	BaseResult<List<UserRoleDTO>> listUserRole(Long userId, Long roleId);
 
-	/**
-	 * 根据角色Id获取用户角色信息，测试Mybatis的Association特性用
-	 * 
-	 * @param roleId 角色ID
-	 * @return 用户角色信息
-	 */
-	BaseResult<RoleDTO> getUserRole(Long roleId);
 }
