@@ -77,6 +77,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public BaseResult<UserDTO> update(UserDTO user) {
 		BaseResult<UserDTO> result = new BaseResult<>();
+		if (user == null) {
+			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setMessage("用户对象为空");
+			return result;
+		}
 		if (user.getId() == null) {
 			LOGGER.error("更新用户失败，失败原因：用户主键ID为空，用户信息：{}", user.toString());
 			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
@@ -104,6 +109,7 @@ public class UserServiceImpl implements UserService {
 			return result;
 		}
 		BaseResult<Integer> result = roleService.deleteUserRole(id, null);
+		LOGGER.info("删除用户角色数量：{}，用户主键ID：{}", result.getData(), id);
 		if (result.success()) {
 			int count = userDAO.delete(id);
 			result.setData(count);
@@ -169,6 +175,11 @@ public class UserServiceImpl implements UserService {
 	 */
 	private BaseResult<UserDTO> checkParam(UserDTO user) {
 		BaseResult<UserDTO> result = new BaseResult<>();
+		if (user == null) {
+			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setMessage("用户对象为空");
+			return result;
+		}
 		if (StringUtil.isBlank(user.getUserName())) {
 			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
 			result.setMessage("用户名称为空");

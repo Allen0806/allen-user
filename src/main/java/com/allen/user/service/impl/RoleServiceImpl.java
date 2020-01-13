@@ -74,6 +74,11 @@ public class RoleServiceImpl implements RoleService {
 	@Override
 	public BaseResult<RoleDTO> update(RoleDTO role) {
 		BaseResult<RoleDTO> result = new BaseResult<>();
+		if (role == null) {
+			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setMessage("角色对象为空");
+			return result;
+		}
 		if (role.getId() == null) {
 			LOGGER.error("更新角色失败，失败原因：角色ID为空，角色信息：{}", role.toString());
 			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
@@ -100,6 +105,7 @@ public class RoleServiceImpl implements RoleService {
 			return result;
 		}
 		BaseResult<Integer> result = authorityService.deleteRoleAuthority(id, null);
+		LOGGER.info("删除角色权限数量：{}，角色主键ID：{}", result.getData(), id);
 		if (result.success()) {
 			int count = roleDAO.delete(id);
 			result.setData(count);
@@ -109,7 +115,7 @@ public class RoleServiceImpl implements RoleService {
 
 	@Override
 	public BaseResult<Integer> saveUserRole(List<UserRoleDTO> userRoles) {
-		if (userRoles == null) {
+		if (userRoles == null || userRoles.size() == 0) {
 			BaseResult<Integer> result = new BaseResult<>();
 			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
 			result.setMessage("用户角色列表为空");
@@ -121,6 +127,10 @@ public class RoleServiceImpl implements RoleService {
 			if (!result.success()) {
 				LOGGER.error("保存用户角色失败，失败原因：{}，用户角色信息：{}", result.getMessage(), userRoleDTO.toString());
 				return result;
+			}
+			if (userRoleDTO.getCreateTime() == null) {
+				LocalDateTime createTime = LocalDateTime.now();
+				userRoleDTO.setCreateTime(createTime);
 			}
 			userRoleDOs.add(toUserRoleDO(userRoleDTO));
 		}
@@ -182,10 +192,11 @@ public class RoleServiceImpl implements RoleService {
 		if (userRoleDOs == null || userRoleDOs.size() == 0) {
 			return result;
 		}
-		List<UserRoleDTO> userRoles = new ArrayList<UserRoleDTO>();
-		for(AuUserRoleDO userRoleDO : userRoleDOs) {
+		List<UserRoleDTO> userRoles = new ArrayList<>();
+		for (AuUserRoleDO userRoleDO : userRoleDOs) {
 			userRoles.add(toUserRoleDTO(userRoleDO));
 		}
+		result.setData(userRoles);
 		return result;
 	}
 
@@ -198,9 +209,15 @@ public class RoleServiceImpl implements RoleService {
 	 */
 	private BaseResult<RoleDTO> checkRoleParam(RoleDTO roleDTO) {
 		BaseResult<RoleDTO> result = new BaseResult<>();
+		if (roleDTO == null) {
+			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setMessage("角色对象为空");
+			return result;
+		}
 		if (StringUtil.isBlank(roleDTO.getRoleName())) {
 			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
 			result.setMessage("角色名称为空");
+			result.setData(roleDTO);
 			return result;
 		}
 		return result;
@@ -250,6 +267,11 @@ public class RoleServiceImpl implements RoleService {
 	 */
 	private BaseResult<Integer> checkUserRoleParam(UserRoleDTO userRoleDTO) {
 		BaseResult<Integer> result = new BaseResult<>();
+		if (userRoleDTO == null) {
+			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setMessage("用户角色对象为空");
+			return result;
+		}
 		if (userRoleDTO.getUserId() == null) {
 			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
 			result.setMessage("用户主键ID为空");
