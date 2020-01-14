@@ -17,10 +17,10 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @ComponentScan(basePackages = "com.allen")
 @MapperScan(basePackages = "com.allen.**.dao")
-public class AllenUserApplication {
+public class UserApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AllenUserApplication.class, args);
+		SpringApplication.run(UserApplication.class, args);
 	}
 
 }

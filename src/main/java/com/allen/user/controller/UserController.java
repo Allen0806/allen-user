@@ -33,7 +33,10 @@ public class UserController {
 	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
-	@Autowired(required = true)
+	/**
+	 * 用户服务
+	 */
+	@Autowired(required = false)
 	private UserService userService;
 
 	/**

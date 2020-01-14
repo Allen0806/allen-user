@@ -1,6 +1,15 @@
 package com.allen.user.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+
+import com.allen.tool.result.BaseResult;
+import com.allen.user.dto.RoleDTO;
+import com.allen.user.dto.UserRoleDTO;
+import com.allen.user.service.RoleService;
 
 /**
  * 角色控制层
@@ -13,4 +22,92 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class RoleController {
 
+	/**
+	 * 角色服务
+	 */
+	@Autowired
+	@Qualifier("roleServiceImpl")
+	private RoleService roleService;
+
+	/**
+	 * 保存角色信息
+	 * 
+	 * @param role 角色信息
+	 * @return 保存结果
+	 */
+	public BaseResult<RoleDTO> save(RoleDTO role) {
+		return null;
+	}
+
+	/**
+	 * 更新角色信息
+	 * 
+	 * @param role 角色信息
+	 * @return 更新结果
+	 */
+	public BaseResult<RoleDTO> update(RoleDTO role) {
+		return null;
+	}
+
+	/**
+	 * 根据角色主键ID删除角色信息
+	 * 
+	 * @param id 角色主键ID
+	 * @return 删除结果
+	 */
+	public BaseResult<Integer> delete(Long id) {
+		return null;
+	}
+
+	/**
+	 * 保存用户角色信息
+	 * 
+	 * @param userRoles 用户角色列表
+	 * @return 保存结果
+	 */
+	public BaseResult<Integer> saveUserRole(List<UserRoleDTO> userRoles) {
+		return null;
+	}
+
+	/**
+	 * 根据用户主键Id或角色Id删除用户角色信息，二者必须给其一
+	 * 
+	 * @param userId 用户主键ID
+	 * @param roleId 角色主键ID
+	 * @return 删除结果
+	 */
+	public BaseResult<Integer> deleteUserRole(Long userId, Long roleId) {
+		return null;
+	}
+
+	/**
+	 * 根据角色主键ID获取角色信息
+	 * 
+	 * @param id 角色主键ID
+	 * @return 角色信息
+	 */
+	public BaseResult<RoleDTO> get(Long id) {
+		return null;
+	}
+
+	/**
+	 * 根据角色名称获取角色信息
+	 * 
+	 * @param roleName 角色名称
+	 * @return 角色信息
+	 */
+	public BaseResult<RoleDTO> getByRoleName(String roleName) {
+		return null;
+	}
+
+	/**
+	 * 获取用户角色信息，用户主键ID与角色主键ID二者必须给其一，如果两者都给则是And关系
+	 * 
+	 * @param userId 用户主键ID
+	 * @param roleId 角色主键ID
+	 * @return 用户角色信息列表
+	 */
+	public BaseResult<List<UserRoleDTO>> listUserRole(Long userId, Long roleId) {
+		return null;
+	}
 }
