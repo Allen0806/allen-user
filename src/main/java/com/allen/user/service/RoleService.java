@@ -20,7 +20,7 @@ public interface RoleService {
 	 * 保存角色信息
 	 * 
 	 * @param role 角色信息
-	 * @return 保存的行数
+	 * @return 保存结果
 	 */
 	BaseResult<RoleDTO> save(RoleDTO role);
 
@@ -28,7 +28,7 @@ public interface RoleService {
 	 * 更新角色信息
 	 * 
 	 * @param role 角色信息
-	 * @return 更新的行数
+	 * @return 更新结果
 	 */
 	BaseResult<RoleDTO> update(RoleDTO role);
 
@@ -36,7 +36,7 @@ public interface RoleService {
 	 * 根据角色主键ID删除角色信息
 	 * 
 	 * @param id 角色主键ID
-	 * @return 删除的行数
+	 * @return 删除结果
 	 */
 	BaseResult<Integer> delete(Long id);
 
@@ -44,7 +44,7 @@ public interface RoleService {
 	 * 保存用户角色信息
 	 * 
 	 * @param userRoles 用户角色列表
-	 * @return 保存的行数
+	 * @return 保存结果
 	 */
 	BaseResult<Integer> saveUserRole(List<UserRoleDTO> userRoles);
 
@@ -53,7 +53,7 @@ public interface RoleService {
 	 * 
 	 * @param userId 用户主键ID
 	 * @param roleId 角色主键ID
-	 * @return 删除的行数
+	 * @return 删除结果
 	 */
 	BaseResult<Integer> deleteUserRole(Long userId, Long roleId);
 

@@ -19,7 +19,7 @@ public interface AuthorityService {
 	 * 保存权限信息
 	 * 
 	 * @param authority 权限信息
-	 * @return 保存结果，如果成功返回更新的行数
+	 * @return 保存结果
 	 */
 	BaseResult<AuthorityDTO> save(AuthorityDTO authority);
 
@@ -27,7 +27,7 @@ public interface AuthorityService {
 	 * 更新权限信息
 	 * 
 	 * @param authority 权限信息
-	 * @return 更新结果，如果成功则返回更新的行数
+	 * @return 更新结果
 	 */
 	BaseResult<AuthorityDTO> update(AuthorityDTO authority);
 

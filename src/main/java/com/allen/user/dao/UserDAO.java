@@ -36,7 +36,7 @@ public interface UserDAO {
 	 * 根据用户主键ID删除用户
 	 * 
 	 * @param id 用户主键ID
-	 * @return 删除记录路
+	 * @return 删除记录数
 	 */
 	int delete(Long id);
 

@@ -1,9 +1,20 @@
 package com.allen.user.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.allen.tool.result.BaseResult;
 import com.allen.user.dto.UserDTO;
+import com.allen.user.service.UserService;
 
 /**
  * 用户控制层
@@ -14,15 +25,35 @@ import com.allen.user.dto.UserDTO;
  *
  */
 @RestController
+@RequestMapping(path = "/user")
 public class UserController {
+
+	/**
+	 * 日志对象
+	 */
+	private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+
+	@Autowired(required = true)
+	private UserService userService;
+
 	/**
 	 * 保存用户
 	 * 
 	 * @param user 用户信息
 	 * @return 保存记录数
 	 */
-	public BaseResult<UserDTO> save(UserDTO user) {
-		return null;
+	@PostMapping
+	public BaseResult<UserDTO> save(@RequestBody UserDTO user) {
+		BaseResult<UserDTO> result = null;
+		try {
+			result = userService.save(user);
+		} catch (Exception e) {
+			LOGGER.error("保存用户信息失败，用户信息[{}]", user.toString(), e);
+			result = new BaseResult<>();
+			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setMessage("保存用户信息失败");
+		}
+		return result;
 	}
 
 	/**
@@ -31,8 +62,18 @@ public class UserController {
 	 * @param user 用户信息
 	 * @return 更新记录数
 	 */
-	public BaseResult<UserDTO> update(UserDTO user) {
-		return null;
+	@PutMapping
+	public BaseResult<UserDTO> update(@RequestBody UserDTO user) {
+		BaseResult<UserDTO> result = null;
+		try {
+			result = userService.update(user);
+		} catch (Exception e) {
+			LOGGER.error("更新用户信息失败，用户信息[{}]", user.toString(), e);
+			result = new BaseResult<>();
+			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setMessage("更新用户信息失败");
+		}
+		return result;
 	}
 
 	/**
@@ -41,8 +82,18 @@ public class UserController {
 	 * @param id 用户主键ID
 	 * @return 删除记录路
 	 */
-	public BaseResult<Integer> delete(Long id) {
-		return null;
+	@DeleteMapping("/{id}")
+	public BaseResult<Integer> delete(@PathVariable("id") Long id) {
+		BaseResult<Integer> result = null;
+		try {
+			result = userService.delete(id);
+		} catch (Exception e) {
+			LOGGER.error("根据用户ID[{}]删除用户信息失败", id, e);
+			result = new BaseResult<>();
+			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setMessage("根据用户ID[" + id + "]删除用户信息失败");
+		}
+		return result;
 	}
 
 	/**
@@ -51,8 +102,18 @@ public class UserController {
 	 * @param id 用户主键ID
 	 * @return 用户信息
 	 */
-	public BaseResult<UserDTO> get(Long id) {
-		return null;
+	@GetMapping("/{id}")
+	public BaseResult<UserDTO> get(@PathVariable("id") Long id) {
+		BaseResult<UserDTO> result = null;
+		try {
+			result = userService.get(id);
+		} catch (Exception e) {
+			LOGGER.error("根据用户ID[{}]获取用户信息失败", id, e);
+			result = new BaseResult<>();
+			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setMessage("根据用户ID[" + id + "]获取用户信息失败");
+		}
+		return result;
 	}
 
 	/**
@@ -61,8 +122,18 @@ public class UserController {
 	 * @param userName 用户名称
 	 * @return 用户信息
 	 */
-	public BaseResult<UserDTO> getByUserName(String userName) {
-		return null;
+	@GetMapping("/name/{userName}")
+	public BaseResult<UserDTO> getByUserName(@PathVariable("userName") String userName) {
+		BaseResult<UserDTO> result = null;
+		try {
+			result = userService.getByUserName(userName);
+		} catch (Exception e) {
+			LOGGER.error("根据用户姓名[{}]获取用户信息失败", userName, e);
+			result = new BaseResult<>();
+			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setMessage("根据用户姓名[" + userName + "]获取用户信息失败");
+		}
+		return result;
 	}
 
 	/**
@@ -71,8 +142,18 @@ public class UserController {
 	 * @param userName 用户名称
 	 * @return 用户信息
 	 */
-	public BaseResult<UserDTO> getUserWithRole(String userName) {
-		return null;
+	@PostMapping("/role/{userName}")
+	public BaseResult<UserDTO> getUserWithRole(@PathVariable("userName") String userName) {
+		BaseResult<UserDTO> result = null;
+		try {
+			result = userService.getUserWithRole(userName);
+		} catch (Exception e) {
+			LOGGER.error("根据用户姓名[{}]获取用户信息失败", userName, e);
+			result = new BaseResult<>();
+			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setMessage("根据用户姓名[" + userName + "]获取用户信息失败");
+		}
+		return result;
 	}
 
 	/**
@@ -81,7 +162,17 @@ public class UserController {
 	 * @param userName 用户名称
 	 * @return 用户信息
 	 */
-	public BaseResult<UserDTO> getUserWithRole2(String userName) {
-		return null;
+	@GetMapping("/role2/{userName}")
+	public BaseResult<UserDTO> getUserWithRole2(@PathVariable("userName") String userName) {
+		BaseResult<UserDTO> result = null;
+		try {
+			result = userService.getUserWithRole2(userName);
+		} catch (Exception e) {
+			LOGGER.error("根据用户姓名[{}]获取用户信息失败", userName, e);
+			result = new BaseResult<>();
+			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setMessage("根据用户姓名[" + userName + "]获取用户信息失败");
+		}
+		return result;
 	}
 }

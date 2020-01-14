@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.allen.tool.result.BaseResult;
 import com.allen.tool.string.StringUtil;
@@ -47,6 +48,7 @@ public class RoleServiceImpl implements RoleService {
 	@Autowired
 	private AuthorityService authorityService;
 
+	@Transactional
 	@Override
 	public BaseResult<RoleDTO> save(RoleDTO role) {
 		BaseResult<RoleDTO> result = checkRoleParam(role);
@@ -71,6 +73,7 @@ public class RoleServiceImpl implements RoleService {
 		return result;
 	}
 
+	@Transactional
 	@Override
 	public BaseResult<RoleDTO> update(RoleDTO role) {
 		BaseResult<RoleDTO> result = new BaseResult<>();
@@ -96,6 +99,7 @@ public class RoleServiceImpl implements RoleService {
 		return result;
 	}
 
+	@Transactional
 	@Override
 	public BaseResult<Integer> delete(Long id) {
 		if (id == null) {
@@ -113,6 +117,7 @@ public class RoleServiceImpl implements RoleService {
 		return result;
 	}
 
+	@Transactional
 	@Override
 	public BaseResult<Integer> saveUserRole(List<UserRoleDTO> userRoles) {
 		if (userRoles == null || userRoles.size() == 0) {
@@ -140,6 +145,7 @@ public class RoleServiceImpl implements RoleService {
 		return result;
 	}
 
+	@Transactional
 	@Override
 	public BaseResult<Integer> deleteUserRole(Long userId, Long roleId) {
 		BaseResult<Integer> result = new BaseResult<>();

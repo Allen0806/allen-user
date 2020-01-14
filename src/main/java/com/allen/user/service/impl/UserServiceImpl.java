@@ -7,6 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.allen.tool.result.BaseResult;
@@ -48,7 +50,7 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private RoleService roleService;
 
-	@Transactional
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@Override
 	public BaseResult<UserDTO> save(UserDTO user) {
 		BaseResult<UserDTO> result = checkParam(user);

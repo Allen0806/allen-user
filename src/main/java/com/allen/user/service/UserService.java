@@ -17,7 +17,7 @@ public interface UserService {
 	 * 保存用户
 	 * 
 	 * @param user 用户信息
-	 * @return 保存记录数
+	 * @return 保存结果
 	 */
 	BaseResult<UserDTO> save(UserDTO user);
 
@@ -25,7 +25,7 @@ public interface UserService {
 	 * 更新用户
 	 * 
 	 * @param user 用户信息
-	 * @return 更新记录数
+	 * @return 更新结果
 	 */
 	BaseResult<UserDTO> update(UserDTO user);
 	
@@ -33,7 +33,7 @@ public interface UserService {
 	 * 根据用户主键ID删除用户
 	 * 
 	 * @param id 用户主键ID
-	 * @return 删除记录路
+	 * @return 删除结果
 	 */
 	BaseResult<Integer> delete(Long id);
 

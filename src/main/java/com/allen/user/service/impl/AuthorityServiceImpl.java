@@ -7,6 +7,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.allen.tool.result.BaseResult;
 import com.allen.tool.string.StringUtil;
@@ -38,6 +39,7 @@ public class AuthorityServiceImpl implements AuthorityService {
 	@Autowired
 	private AuthorityDAO authorityDAO;
 
+	@Transactional
 	@Override
 	public BaseResult<AuthorityDTO> save(AuthorityDTO authority) {
 		BaseResult<AuthorityDTO> result = checkAuthorityParam(authority);
@@ -62,6 +64,7 @@ public class AuthorityServiceImpl implements AuthorityService {
 		return result;
 	}
 
+	@Transactional
 	@Override
 	public BaseResult<AuthorityDTO> update(AuthorityDTO authority) {
 		BaseResult<AuthorityDTO> result = new BaseResult<>();
@@ -87,6 +90,7 @@ public class AuthorityServiceImpl implements AuthorityService {
 		return result;
 	}
 
+	@Transactional
 	@Override
 	public BaseResult<Integer> delete(Long id) {
 		BaseResult<Integer> result = new BaseResult<>();
@@ -102,6 +106,7 @@ public class AuthorityServiceImpl implements AuthorityService {
 		return result;
 	}
 
+	@Transactional
 	@Override
 	public BaseResult<Integer> saveRoleAuthority(List<RoleAuthorityDTO> roleAuthoritis) {
 		if (roleAuthoritis == null || roleAuthoritis.size() == 0) {
@@ -132,6 +137,7 @@ public class AuthorityServiceImpl implements AuthorityService {
 		return result;
 	}
 
+	@Transactional
 	@Override
 	public BaseResult<Integer> deleteRoleAuthority(Long roleId, Long authorityId) {
 		BaseResult<Integer> result = new BaseResult<>();
