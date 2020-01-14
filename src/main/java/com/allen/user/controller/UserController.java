@@ -1,8 +1,15 @@
 package com.allen.user.controller;
 
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,8 +53,31 @@ public class UserController {
 	 * @return 保存记录数
 	 */
 	@PostMapping
-	public BaseResult<UserDTO> save(@RequestBody UserDTO user) {
+	public BaseResult<UserDTO> save(@Valid @RequestBody UserDTO user, Errors errors) {
 		BaseResult<UserDTO> result = null;
+		List<ObjectError> errorList = errors.getAllErrors();
+		errorList.stream().forEach(error -> {
+			String key = null;
+			String msg = null;
+			// 字段错误
+			if (error instanceof FieldError) {
+				FieldError fe = (FieldError) error;
+				key = fe.getField();
+				// 获取错误验证字段名
+			} else {
+				// 非字段错误，获取验证对象名称
+				key = error.getObjectName();
+			}
+			// 错误信息
+			msg = error.getDefaultMessage();
+			LOGGER.error("用户数据校验错误，关键字：{}，错误信息：{}", key, msg);
+		});
+		if (errorList != null && errorList.size() > 0) {
+			result = new BaseResult<>();
+			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setMessage("保存用户信息失败");
+			return result;
+		}
 		try {
 			result = userService.save(user);
 		} catch (Exception e) {

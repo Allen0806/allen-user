@@ -3,6 +3,13 @@ package com.allen.user.dto;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Range;
+
 /**
  * 用户数据传输对象
  * 
@@ -26,26 +33,35 @@ public class UserDTO implements Serializable {
 	/**
 	 * 用户名称
 	 */
+	@NotNull(message = "用户名称不能为空")
 	private String userName;
 
 	/**
 	 * 用户密码
 	 */
+	@NotNull(message = "用户密码不能为空")
 	private String userPassword;
 
 	/**
 	 * 真实姓名
 	 */
+	@NotNull(message = "用户姓名不能为空")
 	private String realName;
 
 	/**
 	 * 用户年龄
 	 */
+	@Min(value = 1, message = "年龄最小值为1")
+	@Max(value = 100, message = "年龄最大值为150")
+	@NotNull(message = "用户年龄不能为空")
+	@Range(min = 2, max = 90, message = "用户年龄在2~90之间")
 	private Integer userAge;
 
 	/**
 	 * 用户性别
 	 */
+	@NotNull(message = "用户性别不能为空")
+	@Size(min = 1, max = 1, message = "字符串长度为1")
 	private String userGender;
 
 	/**
@@ -57,7 +73,7 @@ public class UserDTO implements Serializable {
 	 * 最后登录时间
 	 */
 	private LocalDateTime lastLoginTime;
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -121,7 +137,7 @@ public class UserDTO implements Serializable {
 	public void setLastLoginTime(LocalDateTime lastLoginTime) {
 		this.lastLoginTime = lastLoginTime;
 	}
-	
+
 	@Override
 	public String toString() {
 		StringBuilder sbuilder = new StringBuilder();

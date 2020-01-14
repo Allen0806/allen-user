@@ -12,7 +12,6 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
 
 import com.allen.user.dto.RoleDTO;
 

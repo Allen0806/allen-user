@@ -1,10 +1,9 @@
 package com.allen.user.dto;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
- *角色数据传输对象
+ * 角色数据传输对象
  *
  * @author allen
  * @date 2020年1月8日
@@ -36,8 +35,8 @@ public class RoleDTO implements Serializable {
 	/**
 	 * 创建时间
 	 */
-	private LocalDateTime createTime;
-	
+	private String createTime;
+
 	public Long getId() {
 		return id;
 	}
@@ -62,19 +61,19 @@ public class RoleDTO implements Serializable {
 		this.roleNote = roleNote;
 	}
 
-	public LocalDateTime getCreateTime() {
+	public String getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(LocalDateTime createTime) {
+	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder sbuilder = new StringBuilder();
-		sbuilder.append("RoleDTO[").append("id=").append(id).append(", roleName=").append(roleName).append(", roleNote=")
-				.append(roleNote).append(", createTime=").append(createTime).append("]");
+		sbuilder.append("RoleDTO[").append("id=").append(id).append(", roleName=").append(roleName)
+				.append(", roleNote=").append(roleNote).append(", createTime=").append(createTime).append("]");
 		return sbuilder.toString();
 	}
 }

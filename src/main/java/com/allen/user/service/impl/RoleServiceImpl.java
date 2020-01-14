@@ -1,6 +1,7 @@
 package com.allen.user.service.impl;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +59,7 @@ public class RoleServiceImpl implements RoleService {
 			return result;
 		}
 		if (role.getCreateTime() == null) {
-			LocalDateTime createTime = LocalDateTime.now();
+			String createTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 			role.setCreateTime(createTime);
 		}
 		AuRoleDO roleDO = toRoleDO(role);
@@ -243,7 +244,11 @@ public class RoleServiceImpl implements RoleService {
 		roleDO.setId(roleDTO.getId());
 		roleDO.setRoleName(roleDTO.getRoleName());
 		roleDO.setRoleNote(roleDTO.getRoleNote());
-		roleDO.setCreateTime(roleDTO.getCreateTime());
+		if (!StringUtil.isBlank(roleDTO.getCreateTime())) {
+			LocalDateTime createTime = LocalDateTime.parse(roleDTO.getCreateTime(),
+					DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+			roleDO.setCreateTime(createTime);
+		}
 		return roleDO;
 	}
 
@@ -261,7 +266,7 @@ public class RoleServiceImpl implements RoleService {
 		roleDTO.setId(roleDO.getId());
 		roleDTO.setRoleName(roleDO.getRoleName());
 		roleDTO.setRoleNote(roleDO.getRoleNote());
-		roleDTO.setCreateTime(roleDO.getCreateTime());
+		roleDTO.setCreateTime(roleDO.getCreateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 		return roleDTO;
 	}
 
