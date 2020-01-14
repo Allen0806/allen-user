@@ -8,7 +8,6 @@ import org.apache.ibatis.plugin.Invocation;
 import org.apache.ibatis.plugin.Signature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 /**
  * Mybatis 插件示例
@@ -18,7 +17,6 @@ import org.springframework.stereotype.Component;
  * @since 1.0.0
  *
  */
-@Component
 @Intercepts({ @Signature(type = Executor.class, method = "update", args = { MappedStatement.class, Object.class }) })
 public class UserPlugin implements Interceptor {
 

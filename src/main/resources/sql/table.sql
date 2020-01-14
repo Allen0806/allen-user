@@ -6,7 +6,7 @@ CREATE TABLE `au_user` (
   `user_age` int(3) unsigned NOT NULL COMMENT '用户年龄',
   `user_gender` char(1) NOT NULL COMMENT '用户性别',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `last_login_time` timestamp NOT NULL COMMENT '最后登录时间',
+  `last_login_time` timestamp NULL DEFAULT NULL COMMENT '最后登录时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `udx_user_name` (`user_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户信息表';
