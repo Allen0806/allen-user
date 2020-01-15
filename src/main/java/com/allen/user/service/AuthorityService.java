@@ -15,6 +15,7 @@ import com.allen.user.dto.RoleAuthorityDTO;
  *
  */
 public interface AuthorityService {
+	
 	/**
 	 * 保存权限信息
 	 * 

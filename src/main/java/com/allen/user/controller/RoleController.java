@@ -10,9 +10,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -78,7 +80,7 @@ public class RoleController {
 	 * @param role 角色信息
 	 * @return 更新结果
 	 */
-	@PostMapping("/role/update")
+	@PutMapping("/role")
 	// @ResponseBody
 	public ResponseEntity<RoleDTO> update(@RequestBody RoleDTO role) {
 		HttpHeaders httpHeaders = new HttpHeaders();
@@ -104,8 +106,19 @@ public class RoleController {
 	 * @param id 角色主键ID
 	 * @return 删除结果
 	 */
-	public BaseResult<Integer> delete(Long id) {
-		return null;
+	@DeleteMapping("/role/{id}")
+	@ResponseBody
+	public BaseResult<Integer> delete(@PathVariable("id") Long id) {
+		BaseResult<Integer> result = null;
+		try {
+			result = roleService.delete(id);
+		} catch (Exception e) {
+			LOGGER.error("根据角色ID[{}]删除角色信息失败", id, e);
+			result = new BaseResult<>();
+			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setMessage("根据角色ID[" + id + "]删除角色信息失败");
+		}
+		return result;
 	}
 
 	/**
@@ -114,19 +127,42 @@ public class RoleController {
 	 * @param userRoles 用户角色列表
 	 * @return 保存结果
 	 */
-	public BaseResult<Integer> saveUserRole(List<UserRoleDTO> userRoles) {
-		return null;
+	@PostMapping("/userRole")
+	@ResponseBody
+	public BaseResult<Integer> saveUserRole(@RequestBody List<UserRoleDTO> userRoles) {
+		BaseResult<Integer> result = null;
+		try {
+			result = roleService.saveUserRole(userRoles);
+		} catch (Exception e) {
+			LOGGER.error("保存用户角色信息失败", e);
+			result = new BaseResult<>();
+			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setMessage("保存用户角色信息失败");
+		}
+		return result;
 	}
 
 	/**
-	 * 根据用户主键Id或角色Id删除用户角色信息，二者必须给其一
+	 * 根据用户主键Id或角色Id删除用户角色信息，二者必须给其一。
+	 * http://localhost:8001/userRole?userId=1&roleId=1
 	 * 
 	 * @param userId 用户主键ID
 	 * @param roleId 角色主键ID
 	 * @return 删除结果
 	 */
+	@DeleteMapping("/userRole")
+	@ResponseBody
 	public BaseResult<Integer> deleteUserRole(Long userId, Long roleId) {
-		return null;
+		BaseResult<Integer> result = null;
+		try {
+			result = roleService.deleteUserRole(userId, roleId);
+		} catch (Exception e) {
+			LOGGER.error("删除用户角色信息失败，用户ID：{}，角色ID：{}", userId, roleId, e);
+			result = new BaseResult<>();
+			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setMessage("删除用户角色信息失败");
+		}
+		return result;
 	}
 
 	/**
@@ -193,16 +229,16 @@ public class RoleController {
 	}
 
 	/**
-	 * 获取用户角色信息，用户主键ID与角色主键ID二者必须给其一，如果两者都给则是And关系
+	 * 获取用户角色信息，用户主键ID与角色主键ID二者必须给其一，如果两者都给则是And关系。
+	 * 请求方式：http://localhost:8001/userRole?userId=1&roleId=1
 	 * 
 	 * @param userId 用户主键ID
 	 * @param roleId 角色主键ID
 	 * @return 用户角色信息列表
 	 */
-	@GetMapping("/role/{userId}/{roleId}")
+	@GetMapping("/userRole")
 	@ResponseBody
-	public BaseResult<List<UserRoleDTO>> listUserRole(@PathVariable("userId") Long userId,
-			@PathVariable("roleId") Long roleId) {
+	public BaseResult<List<UserRoleDTO>> listUserRole(Long userId, Long roleId) {
 		BaseResult<List<UserRoleDTO>> result = null;
 		try {
 			result = roleService.listUserRole(userId, roleId);
