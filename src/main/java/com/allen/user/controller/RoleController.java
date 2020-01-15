@@ -6,14 +6,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
@@ -23,7 +28,7 @@ import com.allen.user.dto.UserRoleDTO;
 import com.allen.user.service.RoleService;
 
 /**
- * 角色控制层
+ * 角色控制层，实践各种请求情况
  * 
  * @author Allen
  * @date 2020年1月8日
@@ -53,6 +58,7 @@ public class RoleController {
 	 */
 	@RequestMapping(path = { "/role/save", "/role" }, method = RequestMethod.POST)
 	@ResponseBody
+	@ResponseStatus(HttpStatus.CREATED)
 	public BaseResult<RoleDTO> save(@RequestBody RoleDTO role) {
 		BaseResult<RoleDTO> result = null;
 		try {
@@ -72,8 +78,24 @@ public class RoleController {
 	 * @param role 角色信息
 	 * @return 更新结果
 	 */
-	public BaseResult<RoleDTO> update(RoleDTO role) {
-		return null;
+	@PostMapping("/role/update")
+	// @ResponseBody
+	public ResponseEntity<RoleDTO> update(@RequestBody RoleDTO role) {
+		HttpHeaders httpHeaders = new HttpHeaders();
+		try {
+			BaseResult<RoleDTO> result = roleService.update(role);
+			if (result.success()) {
+				httpHeaders.add("success", "true");
+				return new ResponseEntity<>(result.getData(), httpHeaders, HttpStatus.CREATED);
+			} else {
+				httpHeaders.add("success", "false");
+				return new ResponseEntity<>(httpHeaders, HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+		} catch (Exception e) {
+			LOGGER.error("更新角色信息失败，角色信息[{}]", role.toString(), e);
+			httpHeaders.add("success", "false");
+			return new ResponseEntity<>(httpHeaders, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 	/**
@@ -150,14 +172,14 @@ public class RoleController {
 
 	/**
 	 * 根据角色名称获取角色信息 1）适用get和post方法。
-	 * 2）请求方式：http://localhost:8001/role/name?roleName=departmentManager
+	 * 2）请求方式：http://localhost:8001/role/name?name=departmentManager
 	 * 
 	 * @param roleName 角色名称
 	 * @return 角色信息
 	 */
 	@RequestMapping("/role/name")
 	@ResponseBody
-	public BaseResult<RoleDTO> getByRoleName(@RequestParam("roleName") String roleName) {
+	public BaseResult<RoleDTO> getByRoleName(@RequestParam("name") String roleName) {
 		BaseResult<RoleDTO> result = null;
 		try {
 			result = roleService.getByRoleName(roleName);

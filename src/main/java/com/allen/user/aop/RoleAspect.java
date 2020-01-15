@@ -65,7 +65,7 @@ public class RoleAspect implements Ordered {
 	public void afterThrowing() {
 		LOGGER.info("afterThrowing .........");
 	}
-	
+
 	@Override
 	public int getOrder() {
 		return 2;
