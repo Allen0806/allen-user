@@ -1,6 +1,11 @@
 package com.allen.user.controller;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +29,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
+import com.allen.tool.json.JsonUtil;
 import com.allen.tool.result.BaseResult;
 import com.allen.user.dto.RoleDTO;
 import com.allen.user.dto.UserRoleDTO;
@@ -58,7 +64,7 @@ public class RoleController {
 	 * @param role 角色信息
 	 * @return 保存结果
 	 */
-	@RequestMapping(path = { "/role/save", "/role" }, method = RequestMethod.POST)
+	@RequestMapping(path = { "/role" }, method = RequestMethod.POST)
 	@ResponseBody
 	@ResponseStatus(HttpStatus.CREATED)
 	public BaseResult<RoleDTO> save(@RequestBody RoleDTO role) {
@@ -68,6 +74,58 @@ public class RoleController {
 		} catch (Exception e) {
 			LOGGER.error("保存角色信息失败，角色信息[{}]", role.toString(), e);
 			result = new BaseResult<>();
+			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setMessage("保存角色信息失败");
+		}
+		return result;
+	}
+
+	/**
+	 * 保存角色信息
+	 * 
+	 * @param role 角色信息
+	 * @return 保存结果
+	 */
+	@RequestMapping(path = "/role/save", method = RequestMethod.POST)
+	@ResponseBody
+	public BaseResult<RoleDTO> saveRole(HttpServletRequest request) {
+		BaseResult<RoleDTO> result = new BaseResult<>();
+		BufferedReader reader = null;
+		StringBuilder sb = new StringBuilder();
+		try {
+			reader = new BufferedReader(new InputStreamReader(request.getInputStream(), "utf-8"));
+			String line = null;
+			while ((line = reader.readLine()) != null) {
+				sb.append(line);
+			}
+		} catch (IOException e) {
+			LOGGER.error("获取request参数失败", e);
+			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setMessage("获取request参数失败");
+		} finally {
+			try {
+				if (null != reader) {
+					reader.close();
+				}
+			} catch (IOException e) {
+				LOGGER.error("获取request参数失败", e);
+				result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+				result.setMessage("获取request参数失败");
+			}
+		}
+		if (sb.length() == 0) {
+			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setMessage("获取request参数为空");
+		}
+		if (!result.success()) {
+			return result;
+		}
+		RoleDTO role = null;
+		try {
+			role = JsonUtil.json2Object(sb.toString(), RoleDTO.class);
+			result = roleService.save(role);
+		} catch (Exception e) {
+			LOGGER.error("保存角色信息失败，角色信息[{}]", role, e);
 			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
 			result.setMessage("保存角色信息失败");
 		}
@@ -108,7 +166,7 @@ public class RoleController {
 	 */
 	@DeleteMapping("/role/{id}")
 	@ResponseBody
-	public BaseResult<Integer> delete(@PathVariable("id") Long id) {
+	public BaseResult<Integer> delete(@PathVariable Long id) {
 		BaseResult<Integer> result = null;
 		try {
 			result = roleService.delete(id);
