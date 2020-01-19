@@ -81,34 +81,6 @@
 			left join au_role c on c.id = b.role_id
 		where a.user_name = #{userName}
 	</select>
-	<!-- 用户及包含的角色结果集，引用角色Mapper里的实现 -->
-	<resultMap id="userRoleResultMap2" type="UserRoleDO">
-		<id property="id" column="id" />
-		<result property="userName" column="user_name" />
-		<result property="userPassword" column="user_password"/>
-		<result property="realName" column="real_name"/>
-		<result property="userAge" column="user_age"/>
-		<result property="userGender" column="user_gender"/>
-		<result property="createTime" column="create_time"/>
-		<result property="lastLoginTime" column="last_login_time"/>
-		<collection property="roles" ofType="AuRoleDO" javaType="List" column="role_id" select="com.allen.user.dao.RoleDAO.get" />
-	</resultMap>
-	<!-- 级联查询 -->
-	<select id="getUserWithRole2" parameterType="string" resultMap="userRoleResultMap2">
-		select 
-			a.id as id,
-			a.user_name as user_name,
-			a.user_password as user_password,
-			a.real_name as real_name,
-			a.user_age as user_age,
-			a.user_gender as user_gender,
-			a.create_time as create_time,
-			a.last_login_time as last_login_time,
-			b.role_id as role_id
-		from au_user a 
-			left join au_user_role b on a.id = b.user_id
-		where a.user_name = #{userName}
-	</select>
 	<!-- 开启二级缓存 -->
 	<cache eviction="LRU" flushInterval="60000" size="1024" readOnly="false" />
 </mapper>

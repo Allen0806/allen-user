@@ -60,12 +60,4 @@ public interface UserService {
 	 * @return 用户信息
 	 */
 	BaseResult<UserDTO> getUserWithRole(String userName);
-
-	/**
-	 * 根据用户名称获取用户信息，包括用户的角色信息（懒加载）
-	 * 
-	 * @param userName 用户名称
-	 * @return 用户信息
-	 */
-	BaseResult<UserDTO> getUserWithRole2(String userName);
 }

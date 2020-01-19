@@ -188,24 +188,4 @@ public class UserController {
 		}
 		return result;
 	}
-
-	/**
-	 * 根据用户名称获取用户信息，包括用户的角色信息（懒加载）
-	 * 
-	 * @param userName 用户名称
-	 * @return 用户信息
-	 */
-	@GetMapping("/role2/{userName}")
-	public BaseResult<UserDTO> getUserWithRole2(@PathVariable("userName") String userName) {
-		BaseResult<UserDTO> result = null;
-		try {
-			result = userService.getUserWithRole2(userName);
-		} catch (Exception e) {
-			LOGGER.error("根据用户姓名[{}]获取用户信息失败", userName, e);
-			result = new BaseResult<>();
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
-			result.setMessage("根据用户姓名[" + userName + "]获取用户信息失败");
-		}
-		return result;
-	}
 }

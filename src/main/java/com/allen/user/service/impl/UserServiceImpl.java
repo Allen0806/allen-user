@@ -157,18 +157,6 @@ public class UserServiceImpl implements UserService {
 		return handleUserRoleDO(userRoleDO);
 	}
 
-	@Override
-	public BaseResult<UserDTO> getUserWithRole2(String userName) {
-		BaseResult<UserDTO> result = new BaseResult<>();
-		if (StringUtil.isBlank(userName)) {
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
-			result.setMessage("用户名称为空");
-			return result;
-		}
-		UserRoleDO userRoleDO = userDAO.getUserWithRole2(userName);
-		return handleUserRoleDO(userRoleDO);
-	}
-
 	/**
 	 * 校验用户参数是否为空
 	 * 
@@ -271,8 +259,7 @@ public class UserServiceImpl implements UserService {
 		userDTO.setLastLoginTime(userRoleDO.getLastLoginTime());
 		List<AuRoleDO> roles = userRoleDO.getRoles();
 		if (roles != null) {
-			roles.parallelStream()
-					.forEach(role -> LOGGER.info("用户[{}]包含的角色信息：{}", userRoleDO.getUserName(), roles.toString()));
+			roles.parallelStream().forEach(role -> LOGGER.info("用户[{}]包含的角色信息：{}", userRoleDO.getUserName(), role));
 		}
 		result.setData(userDTO);
 		return result;

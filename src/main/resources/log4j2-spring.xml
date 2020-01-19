@@ -86,9 +86,9 @@
         </Logger>
 
         <!--log4j2 自带过滤日志-->
-        <Logger name="org.springframework" level="INFO" />
-        <logger name="org.mybatis" level="INFO" />
-		<Root level="INFO" includeLocation="true">
+        <Logger name="org.springframework" level="DEBUG" />
+        <logger name="org.mybatis" level="DEBUG" />
+		<Root level="DEBUG" includeLocation="true">
 			<AppenderRef ref="DebugLog" />
 			<AppenderRef ref="InfoLog" />
 			<AppenderRef ref="ErrorLog" />
