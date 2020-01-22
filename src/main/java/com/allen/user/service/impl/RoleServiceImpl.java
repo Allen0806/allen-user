@@ -20,6 +20,7 @@ import com.allen.user.dto.RoleDTO;
 import com.allen.user.dto.UserRoleDTO;
 import com.allen.user.service.AuthorityService;
 import com.allen.user.service.RoleService;
+import com.github.pagehelper.PageHelper;
 
 /**
  * 角色服务层实现类
@@ -195,6 +196,8 @@ public class RoleServiceImpl implements RoleService {
 			result.setMessage("用户主键ID与角色主键ID同时为空");
 			return result;
 		}
+		// 分页查询
+		PageHelper.startPage(1, 10);
 		List<AuUserRoleDO> userRoleDOs = roleDAO.listUserRole(userId, roleId);
 		if (userRoleDOs == null || userRoleDOs.size() == 0) {
 			return result;
