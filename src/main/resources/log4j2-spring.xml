@@ -80,14 +80,29 @@
 
 	<!-- 然后定义logger，只有定义了logger并引入的appender，appender才会生效 -->
 	<loggers>
+		<!--log4j2 自带过滤日志-->
+		<Logger name="org.apache.catalina.startup.DigesterFactory" level="ERROR" />
+        <Logger name="org.apache.catalina.util.LifecycleBase" level="ERROR" />
+        <Logger name="org.apache.coyote.http11.Http11NioProtocol" level="WARN" />
+        <Logger name="org.apache.sshd.common.util.SecurityUtils" level="WARN"/>
+        <Logger name="org.apache.tomcat.util.net.NioSelectorPool" level="WARN" />
+        <Logger name="org.apache.kafka" level="WARN" />
+        <Logger name="com.netflix.eureka" level="WARN" />
+        <Logger name="com.ctrip.framework.apollo" level="WARN" />
+        <Logger name="org.crsh.plugin" level="WARN" />
+        <Logger name="org.crsh.ssh" level="WARN"/>
+        <Logger name="org.eclipse.jetty.util.component.AbstractLifeCycle" level="ERROR" />
+        <Logger name="org.hibernate.validator.internal.util.Version" level="WARN" />
+        <Logger name="org.springframework.boot.actuate.autoconfigure.CrshAutoConfiguration" level="WARN"/>
+        <Logger name="org.springframework.boot.actuate.endpoint.jmx" level="WARN"/>
+        <Logger name="org.thymeleaf" level="warn"/>
+        <Logger name="org.springframework" level="WARN" />
+        <Logger name="org.mybatis" level="WARN" />
         <!--记录druid-sql的记录-->
         <Logger name="druid.sql.Statement" level="DEBUG" additivity="false">
-            <appender-ref ref="DruidSqlLog"/>
+            <AppenderRef ref="DruidSqlLog"/>
         </Logger>
-
-        <!--log4j2 自带过滤日志-->
-        <Logger name="org.springframework" level="DEBUG" />
-        <logger name="org.mybatis" level="DEBUG" />
+        
 		<Root level="DEBUG" includeLocation="true">
 			<AppenderRef ref="DebugLog" />
 			<AppenderRef ref="InfoLog" />
