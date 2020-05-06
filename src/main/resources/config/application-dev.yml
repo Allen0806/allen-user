@@ -51,11 +51,11 @@ spring:
   datasource:
     # 使用druid连接池
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://192.168.74.128:3306/mydev?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&serverTimezone=UTC&allowMultiQueries=true
+    url: jdbc:mysql://localhost:3306/mydev?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&serverTimezone=UTC&allowMultiQueries=true
      # 配置基本属性
     username: mydev
     password: Mydev@1234
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
     # druid相关配置
     druid:
       # 配置初始化大小/最小/最大

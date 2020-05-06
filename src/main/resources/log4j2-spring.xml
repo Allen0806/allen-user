@@ -52,6 +52,21 @@
 		</RollingFile>
 		
 		<!-- 这个会打印出所有的信息，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档 -->
+		<RollingFile name="WarnLog" fileName="${log.home}/${file.name}-warn.log"
+			filePattern="${log.home}/$${date:yyyy-MM}/${file.name}-warn-%d{yyyy-MM-dd}-%i.log">
+			<!-- 只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch） -->
+			<PatternLayout pattern="${log.pattern}" />
+			<Filters>
+				<ThresholdFilter level="WARN" onMatch="ACCEPT"	onMismatch="DENY" />
+            </Filters>
+			<Policies>  
+                <SizeBasedTriggeringPolicy size="500 MB" />
+                <TimeBasedTriggeringPolicy />
+            </Policies> 
+            <DefaultRolloverStrategy max="30" />
+		</RollingFile>
+		
+		<!-- 这个会打印出所有的信息，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档 -->
 		<RollingFile name="ErrorLog" fileName="${log.home}/${file.name}-error.log"
 			filePattern="${log.home}/$${date:yyyy-MM}/${file.name}-error-%d{yyyy-MM-dd}-%i.log">
 			<PatternLayout pattern="${log.pattern}" />
@@ -106,6 +121,7 @@
 		<Root level="DEBUG" includeLocation="true">
 			<AppenderRef ref="DebugLog" />
 			<AppenderRef ref="InfoLog" />
+			<AppenderRef ref="WarnLog" />
 			<AppenderRef ref="ErrorLog" />
 			<AppenderRef ref="Console" />
 		</Root>
