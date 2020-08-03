@@ -2,6 +2,8 @@ package com.allen.user.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.allen.tool.result.BaseResult;
+import com.allen.tool.result.StatusCode;
 import com.allen.user.dto.UserDTO;
 import com.allen.user.service.UserService;
-
-import javax.validation.Valid;
 
 /**
  * 用户控制层
@@ -74,7 +75,7 @@ public class UserController {
 		});
 		if (errorList != null && errorList.size() > 0) {
 			result = new BaseResult<>();
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("保存用户信息失败");
 			return result;
 		}
@@ -83,7 +84,7 @@ public class UserController {
 		} catch (Exception e) {
 			LOGGER.error("保存用户信息失败，用户信息[{}]", user.toString(), e);
 			result = new BaseResult<>();
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("保存用户信息失败");
 		}
 		return result;
@@ -103,7 +104,7 @@ public class UserController {
 		} catch (Exception e) {
 			LOGGER.error("更新用户信息失败，用户信息[{}]", user.toString(), e);
 			result = new BaseResult<>();
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("更新用户信息失败");
 		}
 		return result;
@@ -123,7 +124,7 @@ public class UserController {
 		} catch (Exception e) {
 			LOGGER.error("根据用户ID[{}]删除用户信息失败", id, e);
 			result = new BaseResult<>();
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("根据用户ID[" + id + "]删除用户信息失败");
 		}
 		return result;
@@ -143,7 +144,7 @@ public class UserController {
 		} catch (Exception e) {
 			LOGGER.error("根据用户ID[{}]获取用户信息失败", id, e);
 			result = new BaseResult<>();
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("根据用户ID[" + id + "]获取用户信息失败");
 		}
 		return result;
@@ -163,7 +164,7 @@ public class UserController {
 		} catch (Exception e) {
 			LOGGER.error("根据用户姓名[{}]获取用户信息失败", userName, e);
 			result = new BaseResult<>();
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("根据用户姓名[" + userName + "]获取用户信息失败");
 		}
 		return result;
@@ -183,7 +184,7 @@ public class UserController {
 		} catch (Exception e) {
 			LOGGER.error("根据用户姓名[{}]获取用户信息失败", userName, e);
 			result = new BaseResult<>();
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("根据用户姓名[" + userName + "]获取用户信息失败");
 		}
 		return result;

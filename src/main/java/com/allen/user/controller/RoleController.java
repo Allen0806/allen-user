@@ -31,6 +31,7 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import com.allen.tool.json.JsonUtil;
 import com.allen.tool.result.BaseResult;
+import com.allen.tool.result.StatusCode;
 import com.allen.user.dto.RoleDTO;
 import com.allen.user.dto.UserRoleDTO;
 import com.allen.user.service.RoleService;
@@ -74,7 +75,7 @@ public class RoleController {
 		} catch (Exception e) {
 			LOGGER.error("保存角色信息失败，角色信息[{}]", role.toString(), e);
 			result = new BaseResult<>();
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("保存角色信息失败");
 		}
 		return result;
@@ -100,7 +101,7 @@ public class RoleController {
 			}
 		} catch (IOException e) {
 			LOGGER.error("获取request参数失败", e);
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("获取request参数失败");
 		} finally {
 			try {
@@ -109,15 +110,15 @@ public class RoleController {
 				}
 			} catch (IOException e) {
 				LOGGER.error("获取request参数失败", e);
-				result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+				result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 				result.setMessage("获取request参数失败");
 			}
 		}
 		if (sb.length() == 0) {
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("获取request参数为空");
 		}
-		if (!result.success()) {
+		if (!result.isSuccessful()) {
 			return result;
 		}
 		RoleDTO role = null;
@@ -126,7 +127,7 @@ public class RoleController {
 			result = roleService.save(role);
 		} catch (Exception e) {
 			LOGGER.error("保存角色信息失败，角色信息[{}]", role, e);
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("保存角色信息失败");
 		}
 		return result;
@@ -144,7 +145,7 @@ public class RoleController {
 		HttpHeaders httpHeaders = new HttpHeaders();
 		try {
 			BaseResult<RoleDTO> result = roleService.update(role);
-			if (result.success()) {
+			if (result.isSuccessful()) {
 				httpHeaders.add("success", "true");
 				return new ResponseEntity<>(result.getData(), httpHeaders, HttpStatus.CREATED);
 			} else {
@@ -173,7 +174,7 @@ public class RoleController {
 		} catch (Exception e) {
 			LOGGER.error("根据角色ID[{}]删除角色信息失败", id, e);
 			result = new BaseResult<>();
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("根据角色ID[" + id + "]删除角色信息失败");
 		}
 		return result;
@@ -194,7 +195,7 @@ public class RoleController {
 		} catch (Exception e) {
 			LOGGER.error("保存用户角色信息失败", e);
 			result = new BaseResult<>();
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("保存用户角色信息失败");
 		}
 		return result;
@@ -217,7 +218,7 @@ public class RoleController {
 		} catch (Exception e) {
 			LOGGER.error("删除用户角色信息失败，用户ID：{}，角色ID：{}", userId, roleId, e);
 			result = new BaseResult<>();
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("删除用户角色信息失败");
 		}
 		return result;
@@ -258,7 +259,7 @@ public class RoleController {
 		} catch (Exception e) {
 			LOGGER.error("根据角色ID[{}]获取角色信息失败", id, e);
 			result = new BaseResult<>();
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("根据角色ID[" + id + "]获取角色信息失败");
 		}
 		return result;
@@ -280,7 +281,7 @@ public class RoleController {
 		} catch (Exception e) {
 			LOGGER.error("根据角色名称[{}]获取角色信息失败", roleName, e);
 			result = new BaseResult<>();
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("根据角色名称[" + roleName + "]获取角色信息失败");
 		}
 		return result;
@@ -303,7 +304,7 @@ public class RoleController {
 		} catch (Exception e) {
 			LOGGER.error("获取用户角色信息失败，用户ID：{}，角色ID：{}", userId, roleId, e);
 			result = new BaseResult<>();
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("获取用户角色信息失败");
 		}
 		return result;

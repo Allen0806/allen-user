@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.allen.tool.result.BaseResult;
+import com.allen.tool.result.StatusCode;
 import com.allen.user.dto.AuthorityDTO;
 import com.allen.user.dto.RoleAuthorityDTO;
 import com.allen.user.service.AuthorityService;
@@ -54,7 +55,7 @@ public class AuthorityController {
 		} catch (Exception e) {
 			LOGGER.error("保存权限信息失败，权限信息[{}]", authority.toString(), e);
 			result = new BaseResult<>();
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("保存权限信息失败");
 		}
 		return result;
@@ -74,7 +75,7 @@ public class AuthorityController {
 		} catch (Exception e) {
 			LOGGER.error("更新权限信息失败，权限信息[{}]", authority.toString(), e);
 			result = new BaseResult<>();
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("更新权限信息失败");
 		}
 		return result;
@@ -94,7 +95,7 @@ public class AuthorityController {
 		} catch (Exception e) {
 			LOGGER.error("根据权限ID[{}]删除用户信息失败", id, e);
 			result = new BaseResult<>();
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("根据权限ID[" + id + "]删除权限信息失败");
 		}
 		return result;
@@ -114,7 +115,7 @@ public class AuthorityController {
 		} catch (Exception e) {
 			LOGGER.error("保存角色权限信息失败", e);
 			result = new BaseResult<>();
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("保存角色权限信息失败");
 		}
 		return result;
@@ -130,7 +131,7 @@ public class AuthorityController {
 	public BaseResult<Integer> deleteRoleAuthority(@RequestBody RoleAuthorityDTO roleAuthority) {
 		BaseResult<Integer> result = new BaseResult<>();
 		if (roleAuthority == null) {
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("参数为空");
 		}
 		Long roleId = roleAuthority.getRoleId();
@@ -140,7 +141,7 @@ public class AuthorityController {
 		} catch (Exception e) {
 			LOGGER.error("删除角色权限信息失败，角色ID：{}，权限ID：{}", roleId, authorityId, e);
 			result = new BaseResult<>();
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("删除角色权限信息失败");
 		}
 		return result;
@@ -160,7 +161,7 @@ public class AuthorityController {
 		} catch (Exception e) {
 			LOGGER.error("根据权限ID[{}]获取权限信息失败", id, e);
 			result = new BaseResult<>();
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("根据权限ID[" + id + "]获取权限信息失败");
 		}
 		return result;
@@ -180,7 +181,7 @@ public class AuthorityController {
 		} catch (Exception e) {
 			LOGGER.error("根据权限名称[{}]获取权限信息失败", authorityName, e);
 			result = new BaseResult<>();
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("根据权限名称[" + authorityName + "]获取权限信息失败");
 		}
 		return result;
@@ -196,7 +197,7 @@ public class AuthorityController {
 	public BaseResult<List<RoleAuthorityDTO>> listRoleAuthority(@RequestBody RoleAuthorityDTO roleAuthority) {
 		BaseResult<List<RoleAuthorityDTO>> result = new BaseResult<>();
 		if (roleAuthority == null) {
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("参数为空");
 		}
 		Long roleId = roleAuthority.getRoleId();
@@ -206,7 +207,7 @@ public class AuthorityController {
 		} catch (Exception e) {
 			LOGGER.error("获取角色权限信息失败，角色ID：{}，权限ID：{}", roleId, authorityId, e);
 			result = new BaseResult<>();
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("获取角色权限信息失败");
 		}
 		return result;

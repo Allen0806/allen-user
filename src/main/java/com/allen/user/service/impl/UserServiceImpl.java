@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.allen.tool.result.BaseResult;
+import com.allen.tool.result.StatusCode;
 import com.allen.tool.string.StringUtil;
 import com.allen.user.constant.GenderEnum;
 import com.allen.user.dao.UserDAO;
@@ -54,7 +55,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public BaseResult<UserDTO> save(UserDTO user) {
 		BaseResult<UserDTO> result = checkParam(user);
-		if (!result.success()) {
+		if (!result.isSuccessful()) {
 			LOGGER.error("保存用户失败，失败原因：{}，用户信息：{}", result.getMessage(), user.toString());
 			result.setData(user);
 			return result;
@@ -66,7 +67,7 @@ public class UserServiceImpl implements UserService {
 		AuUserDO userDO = toUserDO(user);
 		int count = userDAO.save(userDO);
 		if (count < 1) {
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("保存用户失败");
 		} else {
 			user.setId(userDO.getId());
@@ -80,13 +81,13 @@ public class UserServiceImpl implements UserService {
 	public BaseResult<UserDTO> update(UserDTO user) {
 		BaseResult<UserDTO> result = new BaseResult<>();
 		if (user == null) {
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("用户对象为空");
 			return result;
 		}
 		if (user.getId() == null) {
 			LOGGER.error("更新用户失败，失败原因：用户主键ID为空，用户信息：{}", user.toString());
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("用户主键ID为空");
 			result.setData(user);
 			return result;
@@ -94,7 +95,7 @@ public class UserServiceImpl implements UserService {
 		AuUserDO userDO = toUserDO(user);
 		int count = userDAO.update(userDO);
 		if (count < 1) {
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("更新用户失败");
 		}
 		result.setData(user);
@@ -106,13 +107,13 @@ public class UserServiceImpl implements UserService {
 	public BaseResult<Integer> delete(Long id) {
 		if (id == null) {
 			BaseResult<Integer> result = new BaseResult<>();
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("用户主键ID为空");
 			return result;
 		}
 		BaseResult<Integer> result = roleService.deleteUserRole(id, null);
 		LOGGER.info("删除用户角色数量：{}，用户主键ID：{}", result.getData(), id);
-		if (result.success()) {
+		if (result.isSuccessful()) {
 			int count = userDAO.delete(id);
 			result.setData(count);
 		}
@@ -123,7 +124,7 @@ public class UserServiceImpl implements UserService {
 	public BaseResult<UserDTO> get(Long id) {
 		BaseResult<UserDTO> result = new BaseResult<>();
 		if (id == null) {
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("用户主键ID为空");
 			return result;
 		}
@@ -136,7 +137,7 @@ public class UserServiceImpl implements UserService {
 	public BaseResult<UserDTO> getByUserName(String userName) {
 		BaseResult<UserDTO> result = new BaseResult<>();
 		if (StringUtil.isBlank(userName)) {
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("用户名称为空");
 			return result;
 		}
@@ -149,7 +150,7 @@ public class UserServiceImpl implements UserService {
 	public BaseResult<UserDTO> getUserWithRole(String userName) {
 		if (StringUtil.isBlank(userName)) {
 			BaseResult<UserDTO> result = new BaseResult<>();
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("用户名称为空");
 			return result;
 		}
@@ -166,27 +167,27 @@ public class UserServiceImpl implements UserService {
 	private BaseResult<UserDTO> checkParam(UserDTO user) {
 		BaseResult<UserDTO> result = new BaseResult<>();
 		if (user == null) {
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("用户对象为空");
 			return result;
 		}
 		if (StringUtil.isBlank(user.getUserName())) {
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("用户名称为空");
 			return result;
 		}
 		if (StringUtil.isBlank(user.getUserPassword())) {
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("用户密码为空");
 			return result;
 		}
 		if (StringUtil.isBlank(user.getRealName())) {
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("用户姓名为空");
 			return result;
 		}
 		if (StringUtil.isBlank(user.getUserGender())) {
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("用户性别为空");
 			return result;
 		}

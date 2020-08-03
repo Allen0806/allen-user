@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.allen.tool.result.BaseResult;
+import com.allen.tool.result.StatusCode;
 import com.allen.tool.string.StringUtil;
 import com.allen.user.dao.AuthorityDAO;
 import com.allen.user.data.AuAuthorityDO;
@@ -45,7 +46,7 @@ public class AuthorityServiceImpl implements AuthorityService {
 	@Override
 	public BaseResult<AuthorityDTO> save(AuthorityDTO authority) {
 		BaseResult<AuthorityDTO> result = checkAuthorityParam(authority);
-		if (!result.success()) {
+		if (!result.isSuccessful()) {
 			LOGGER.error("保存权限失败，失败原因：{}，权限信息：{}", result.getMessage(), authority.toString());
 			result.setData(authority);
 			return result;
@@ -57,7 +58,7 @@ public class AuthorityServiceImpl implements AuthorityService {
 		AuAuthorityDO authorityDO = toAuthorityDO(authority);
 		int count = authorityDAO.save(authorityDO);
 		if (count < 1) {
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("保存权限失败");
 		} else {
 			authority.setId(authorityDO.getId());
@@ -71,13 +72,13 @@ public class AuthorityServiceImpl implements AuthorityService {
 	public BaseResult<AuthorityDTO> update(AuthorityDTO authority) {
 		BaseResult<AuthorityDTO> result = new BaseResult<>();
 		if (authority == null) {
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("权限对象为空");
 			return result;
 		}
 		if (authority.getId() == null) {
 			LOGGER.error("更新权限失败，失败原因：权限ID为空，权限信息：{}", authority.toString());
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("权限ID为空");
 			result.setData(authority);
 			return result;
@@ -85,7 +86,7 @@ public class AuthorityServiceImpl implements AuthorityService {
 		AuAuthorityDO authorityDO = toAuthorityDO(authority);
 		int count = authorityDAO.update(authorityDO);
 		if (count < 1) {
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("更新权限失败");
 		}
 		result.setData(authority);
@@ -97,7 +98,7 @@ public class AuthorityServiceImpl implements AuthorityService {
 	public BaseResult<Integer> delete(Long id) {
 		BaseResult<Integer> result = new BaseResult<>();
 		if (id == null) {
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("权限主键ID为空");
 			return result;
 		}
@@ -113,14 +114,14 @@ public class AuthorityServiceImpl implements AuthorityService {
 	public BaseResult<Integer> saveRoleAuthority(List<RoleAuthorityDTO> roleAuthoritis) {
 		if (roleAuthoritis == null || roleAuthoritis.size() == 0) {
 			BaseResult<Integer> result = new BaseResult<>();
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("角色权限列表为空");
 			return result;
 		}
 		List<AuRoleAuthorityDO> roleAuthorityDOs = new ArrayList<>();
 		for (RoleAuthorityDTO roleAuthority : roleAuthoritis) {
 			BaseResult<Integer> result = checkRoleAuthorityParam(roleAuthority);
-			if (!result.success()) {
+			if (!result.isSuccessful()) {
 				LOGGER.error("保存角色权限失败，失败原因：{}，角色权限信息：{}", result.getMessage(), roleAuthority.toString());
 				return result;
 			}
@@ -144,7 +145,7 @@ public class AuthorityServiceImpl implements AuthorityService {
 	public BaseResult<Integer> deleteRoleAuthority(Long roleId, Long authorityId) {
 		BaseResult<Integer> result = new BaseResult<>();
 		if (roleId == null && authorityId == null) {
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("角色主键ID与权限主键ID同时为空");
 			return result;
 		}
@@ -158,7 +159,7 @@ public class AuthorityServiceImpl implements AuthorityService {
 	public BaseResult<AuthorityDTO> get(Long id) {
 		BaseResult<AuthorityDTO> result = new BaseResult<>();
 		if (id == null) {
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("权限主键ID为空");
 			return result;
 		}
@@ -171,7 +172,7 @@ public class AuthorityServiceImpl implements AuthorityService {
 	public BaseResult<AuthorityDTO> getByAuthorityName(String authorityName) {
 		BaseResult<AuthorityDTO> result = new BaseResult<>();
 		if (StringUtil.isBlank(authorityName)) {
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("权限名称为空");
 			return result;
 		}
@@ -184,7 +185,7 @@ public class AuthorityServiceImpl implements AuthorityService {
 	public BaseResult<List<RoleAuthorityDTO>> listRoleAuthority(Long roleId, Long authorityId) {
 		BaseResult<List<RoleAuthorityDTO>> result = new BaseResult<>();
 		if (roleId == null && authorityId == null) {
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("角色主键ID与权限主键ID同时为空");
 			return result;
 		}
@@ -209,13 +210,13 @@ public class AuthorityServiceImpl implements AuthorityService {
 	private BaseResult<AuthorityDTO> checkAuthorityParam(AuthorityDTO authority) {
 		BaseResult<AuthorityDTO> result = new BaseResult<>();
 		if (authority == null) {
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("权限对象为空");
 			return result;
 		}
 		result.setData(authority);
 		if (StringUtil.isBlank(authority.getAuthorityName())) {
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("权限名称为空");
 			return result;
 		}
@@ -267,17 +268,17 @@ public class AuthorityServiceImpl implements AuthorityService {
 	private BaseResult<Integer> checkRoleAuthorityParam(RoleAuthorityDTO roleAuthority) {
 		BaseResult<Integer> result = new BaseResult<>();
 		if (roleAuthority == null) {
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("角色权限对象为空");
 			return result;
 		}
 		if (roleAuthority.getRoleId() == null) {
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("角色主键Id为空");
 			return result;
 		}
 		if (roleAuthority.getAuthorityId() == null) {
-			result.setStatus(BaseResult.STATUS_SYSTEM_FAILURE);
+			result.setStatusCode(StatusCode.SYSTEM_ERROR.getCode());
 			result.setMessage("权限主键Id为空");
 			return result;
 		}
