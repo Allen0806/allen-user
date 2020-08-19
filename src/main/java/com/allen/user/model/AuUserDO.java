@@ -1,28 +1,27 @@
-package com.allen.user.data;
+package com.allen.user.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
 
 import org.apache.ibatis.type.Alias;
 
 import com.allen.user.constant.GenderEnum;
 
 /**
- * 用户及角色信息数据对象类，测试Mybatis的collection特性用
+ * 用户数据对象
  * 
  * @author Allen
- * @date 2020年1月9日
+ * @date 2020年1月7日
  * @since 1.0.0
  *
  */
-@Alias("UserRoleDO")
-public class UserRoleDO implements Serializable {
+@Alias("AuUserDO")
+public class AuUserDO implements Serializable {
 
 	/**
 	 * 序列化版本号
 	 */
-	private static final long serialVersionUID = 7103295722755583226L;
+	private static final long serialVersionUID = 5967491979146748513L;
 
 	/**
 	 * 用户ID
@@ -63,11 +62,6 @@ public class UserRoleDO implements Serializable {
 	 * 最后登录时间
 	 */
 	private LocalDateTime lastLoginTime;
-
-	/**
-	 * 角色列表
-	 */
-	private List<AuRoleDO> roles;
 
 	public Long getId() {
 		return id;
@@ -133,18 +127,10 @@ public class UserRoleDO implements Serializable {
 		this.lastLoginTime = lastLoginTime;
 	}
 
-	public List<AuRoleDO> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(List<AuRoleDO> roles) {
-		this.roles = roles;
-	}
-	
 	@Override
 	public String toString() {
 		StringBuilder sbuilder = new StringBuilder();
-		sbuilder.append("UserRoleDO[").append("id=").append(id).append(", userName=").append(userName)
+		sbuilder.append("AuUserDO[").append("id=").append(id).append(", userName=").append(userName)
 				.append(", userPassword=").append(userPassword).append(", realName=").append(realName)
 				.append(", userAge=").append(userAge).append(", userGender=").append(userGender).append(", createTime=")
 				.append(createTime).append(", lastLoginTime=").append(lastLoginTime).append("]");

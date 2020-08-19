@@ -8,7 +8,7 @@
 			values(#{userName}, #{userPassword}, #{realName}, #{userAge}, #{userGender}, #{createTime}, #{lastLoginTime})
 	</insert>
 	<!-- 根据主键ID更新用户，set使用示例 -->
-	<update id="update" parameterType="com.allen.user.data.AuUserDO">
+	<update id="update" parameterType="com.allen.user.model.AuUserDO">
 		update au_user
 		<set>
 			<if test="userName != null" >user_name=#{userName},</if>

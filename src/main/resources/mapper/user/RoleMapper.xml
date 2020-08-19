@@ -7,7 +7,7 @@
 			values(#{roleName}, #{roleNote}, #{createTime})
 	</insert>
 	<!-- 根据主键ID更新，trim使用示例 -->
-	<update id="update" parameterType="com.allen.user.data.AuRoleDO">
+	<update id="update" parameterType="com.allen.user.model.AuRoleDO">
 		update au_role
 		<trim prefix="set" suffixOverrides=",">
 			<if test="roleName != null" >role_name=#{roleName},</if>

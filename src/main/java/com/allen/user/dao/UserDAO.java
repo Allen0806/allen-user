@@ -2,8 +2,8 @@ package com.allen.user.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.allen.user.data.AuUserDO;
-import com.allen.user.data.UserRoleDO;
+import com.allen.user.model.AuUserDO;
+import com.allen.user.model.UserRoleDO;
 
 /**
  * 用户管理DAO

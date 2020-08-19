@@ -14,10 +14,10 @@ import com.allen.tool.result.BaseResult;
 import com.allen.tool.result.StatusCode;
 import com.allen.tool.string.StringUtil;
 import com.allen.user.dao.AuthorityDAO;
-import com.allen.user.data.AuAuthorityDO;
-import com.allen.user.data.AuRoleAuthorityDO;
 import com.allen.user.dto.AuthorityDTO;
 import com.allen.user.dto.RoleAuthorityDTO;
+import com.allen.user.model.AuAuthorityDO;
+import com.allen.user.model.AuRoleAuthorityDO;
 import com.allen.user.service.AuthorityService;
 
 /**

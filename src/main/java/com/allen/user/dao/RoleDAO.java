@@ -5,8 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-import com.allen.user.data.AuRoleDO;
-import com.allen.user.data.AuUserRoleDO;
+import com.allen.user.model.AuRoleDO;
+import com.allen.user.model.AuUserRoleDO;
 
 /**
  * 角色管理DAO

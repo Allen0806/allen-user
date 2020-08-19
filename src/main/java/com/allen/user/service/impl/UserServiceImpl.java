@@ -16,10 +16,10 @@ import com.allen.tool.result.StatusCode;
 import com.allen.tool.string.StringUtil;
 import com.allen.user.constant.GenderEnum;
 import com.allen.user.dao.UserDAO;
-import com.allen.user.data.AuRoleDO;
-import com.allen.user.data.AuUserDO;
-import com.allen.user.data.UserRoleDO;
 import com.allen.user.dto.UserDTO;
+import com.allen.user.model.AuRoleDO;
+import com.allen.user.model.AuUserDO;
+import com.allen.user.model.UserRoleDO;
 import com.allen.user.service.RoleService;
 import com.allen.user.service.UserService;
 

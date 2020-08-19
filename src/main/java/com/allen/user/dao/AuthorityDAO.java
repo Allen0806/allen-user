@@ -5,8 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.allen.user.data.AuAuthorityDO;
-import com.allen.user.data.AuRoleAuthorityDO;
+import com.allen.user.model.AuAuthorityDO;
+import com.allen.user.model.AuRoleAuthorityDO;
 
 /**
  * 权限管理DAO
